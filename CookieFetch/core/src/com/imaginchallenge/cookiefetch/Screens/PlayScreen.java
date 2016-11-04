@@ -4,10 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.imaginchallenge.cookiefetch.CookieFetch;
+import com.imaginchallenge.cookiefetch.Logic.GameLogic;
 
 /**
  * Created by Nuno on 04/11/2016.
@@ -19,24 +25,50 @@ public class PlayScreen implements Screen, InputProcessor {
 
     private Texture img;
     private Vector2 imgPosition;
+    private Texture background;
+    private GameLogic gameLogic;
+    private Stage stage;
 
     //Variables relationed to the touch events
     private Vector2 finishingPoint;
     private Vector2 startingPoint;
     private float distance;
 
+    //Cameras
+    private OrthographicCamera cam;
+    private Viewport vport;
+
+
+    //Test
+    private Box2DDebugRenderer d2R;
+
+
     public PlayScreen(CookieFetch game){
 
         this.game = game;
+        background = new Texture("game.png");
+
+
+        cam = new OrthographicCamera();
+        vport = new StretchViewport(background.getWidth(),background.getHeight(),cam);
+        stage = new Stage(vport);
+        stage.clear();
+
 
         img = new Texture("plate1.png");
 
         finishingPoint = new Vector2(0,0);
         startingPoint = new Vector2(0,0);
-        imgPosition = new Vector2(Gdx.graphics.getWidth()/2-img.getWidth()/2,0);
+        imgPosition = new Vector2(0,0);
 
         //Telling Libgdx what it input process so it can be called when a new input event arrives
         Gdx.input.setInputProcessor(this);
+
+        d2R = new Box2DDebugRenderer();
+
+        gameLogic = new GameLogic();
+
+
     }
 
     @Override
@@ -46,11 +78,21 @@ public class PlayScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        update(delta);
+
+
+        d2R.render(gameLogic.world,cam.combined);
+
+
+        cam.update();
+        game.batch.setProjectionMatrix(cam.combined);
+
+
         game.batch.begin();
-        game.batch.draw(img, imgPosition.x, imgPosition.y);
+        game.batch.draw(background, imgPosition.x, imgPosition.y);
         game.batch.end();
+
+        stage.draw();
     }
 
     @Override
@@ -61,6 +103,10 @@ public class PlayScreen implements Screen, InputProcessor {
     @Override
     public void pause() {
 
+    }
+
+    public void update(float delta){
+        cam.update();
     }
 
     @Override

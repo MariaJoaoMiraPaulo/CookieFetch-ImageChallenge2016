@@ -2,6 +2,7 @@ package com.imaginchallenge.cookiefetch;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.imaginchallenge.cookiefetch.Screens.MenuScreen;
+import com.imaginchallenge.cookiefetch.Screens.PlayScreen;
 
 public class CookieFetch extends Game {
 
@@ -13,7 +14,8 @@ public class CookieFetch extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MenuScreen(this));
+		//setScreen(new MenuScreen(this));
+		setScreen(new PlayScreen(this));
 	}
 
 	@Override
