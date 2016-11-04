@@ -42,8 +42,10 @@ public class MenuScreen implements Screen{
         background = new Texture("menu.png");
         width = background.getWidth();
         height = background.getHeight();
+
         menuCam=new OrthographicCamera();
         menuPort = new StretchViewport(background.getWidth(),background.getHeight(),menuCam);
+
         stage = new Stage(menuPort);
         stage.clear();
         Gdx.input.setInputProcessor(stage);
@@ -58,19 +60,22 @@ public class MenuScreen implements Screen{
         style.up = skin.getDrawable("PlayButton");
         style.down = skin.getDrawable("PlayPressed");
         playButton = new ImageButton(style);
-        playButton.setPosition(width/2-playButton.getWidth()/2,height/2+80);
+        playButton.setPosition(width/2-playButton.getWidth()/2-10,height/2+80);
+        playButton.setSize(150,150);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("HighScoresButton");
         style.down = skin.getDrawable("HighScoresPressed");
         highScoresButton = new ImageButton(style);
         highScoresButton.setPosition(width/2-playButton.getWidth()/2,height/2-120);
+        highScoresButton.setSize(150,150);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("SettingsButton");
         style.down = skin.getDrawable("SettingsPressed");
         exitButton = new ImageButton(style);
         exitButton.setPosition(width/2-playButton.getWidth()/2, height/2-300);
+        exitButton.setSize(150,150);
 
 
         stage.addActor(playButton);
@@ -85,7 +90,9 @@ public class MenuScreen implements Screen{
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                Screen screen=new PlayScreen(game);
+                game.setScreen(screen);
+                dispose();
             }
         });
 

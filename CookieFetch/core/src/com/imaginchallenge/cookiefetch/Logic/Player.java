@@ -1,4 +1,4 @@
-package com.imaginchallenge.cookiefetch.Logic;
+package com.imaginchallenge.quizroad.Logic;
 
 /**
  * Created by antoniomelo on 11/4/16.

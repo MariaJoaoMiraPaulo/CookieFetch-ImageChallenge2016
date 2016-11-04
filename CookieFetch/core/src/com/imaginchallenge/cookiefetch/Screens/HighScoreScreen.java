@@ -57,16 +57,16 @@ public class HighScoreScreen implements Screen{
         stage.clear();
         Gdx.input.setInputProcessor(stage);
 
-        ButtonsPack = new TextureAtlas("ChooseWorldButtons.pack");
+        ButtonsPack = new TextureAtlas("menuButtons.atlas");
         skin = new Skin();
         skin.addRegions(ButtonsPack);
         style = new ImageButton.ImageButtonStyle();
 
         style = new ImageButton.ImageButtonStyle();
-        style.up = skin.getDrawable("homeButton");
-        style.down = skin.getDrawable("homeButtonPressed");
+        style.up = skin.getDrawable("HomePressed");
+        style.down = skin.getDrawable("HomeButton");
         backButton = new ImageButton(style);
-        backButton.setPosition(20,height-80);
+        backButton.setPosition(20,height-150);
 
         loadHighScores();
 

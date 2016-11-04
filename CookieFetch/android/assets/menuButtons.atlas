@@ -24,7 +24,7 @@ HomeButton
   orig: 124, 128
   offset: 0, 0
   index: -1
-HomeButtonPressed
+HomePressed
   rotate: false
   xy: 1, 1
   size: 124, 128
