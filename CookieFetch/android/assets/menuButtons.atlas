@@ -1,0 +1,75 @@
+
+menuButtons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+HighScoresButton
+  rotate: false
+  xy: 1, 261
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+HighScoresPressed
+  rotate: false
+  xy: 1, 131
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+HomeButton
+  rotate: false
+  xy: 127, 261
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+HomeButtonPressed
+  rotate: false
+  xy: 1, 1
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+MusicButton
+  rotate: false
+  xy: 127, 131
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+MusicPressed
+  rotate: false
+  xy: 253, 261
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+PlayButton
+  rotate: false
+  xy: 127, 1
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+PlayPressed
+  rotate: false
+  xy: 253, 131
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+SettingsButton
+  rotate: false
+  xy: 379, 261
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+SettingsPressed
+  rotate: false
+  xy: 253, 1
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
