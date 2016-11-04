@@ -15,6 +15,7 @@ public class CookieFetch extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		//setScreen(new MenuScreen(this));
+
 		setScreen(new PlayScreen(this));
 	}
 

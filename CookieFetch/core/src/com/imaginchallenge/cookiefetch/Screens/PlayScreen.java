@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,10 +25,13 @@ public class PlayScreen implements Screen, InputProcessor {
     private CookieFetch game;
 
     private Texture img;
+    private TextureRegion[] cookiesRegion;
     private Vector2 imgPosition;
     private Texture background;
     private GameLogic gameLogic;
     private Stage stage;
+
+    private Texture backgroundImg;
 
     //Variables relationed to the touch events
     private Vector2 finishingPoint;
@@ -55,7 +59,16 @@ public class PlayScreen implements Screen, InputProcessor {
         stage.clear();
 
 
-        img = new Texture("plate1.png");
+        img = new Texture("cookieBlack.png");
+        TextureRegion[][] tmp = TextureRegion.split(img,img.getWidth()/5, img.getHeight());
+        cookiesRegion = new TextureRegion[5];
+        int index = 0;
+        for(int i=0;i<5;i++){
+            cookiesRegion[index] = tmp[0][i];
+            index++;
+        }
+
+        backgroundImg = new Texture("game.png");
 
         finishingPoint = new Vector2(0,0);
         startingPoint = new Vector2(0,0);
