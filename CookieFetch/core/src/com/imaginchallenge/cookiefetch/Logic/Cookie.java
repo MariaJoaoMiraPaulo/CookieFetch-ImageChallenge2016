@@ -29,7 +29,7 @@ public class Cookie {
     }
 
     public enum Type {
-        RED,BLACK,GREEN,BROWN
+        RED,GREEN,BROWN
     }
 
     public static int value = 5;
@@ -78,9 +78,7 @@ public class Cookie {
 
     public Texture selectTexture(Type type){
 
-        if(type==Type.BLACK)
-            return (new Texture("cookie1.png"));
-        else if(type==Type.BROWN)
+        if(type==Type.BROWN)
             return (new Texture("cookie2.png"));
         else if(type==Type.GREEN)
             return (new Texture("cookie3.png"));
