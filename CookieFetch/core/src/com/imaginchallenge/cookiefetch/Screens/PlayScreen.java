@@ -3,16 +3,13 @@ package com.imaginchallenge.cookiefetch.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.imaginchallenge.cookiefetch.Logic.Cookie;
+import com.imaginchallenge.cookiefetch.Logic.Plate;
+
+import java.util.ArrayList;
 
 /**
  * Created by Nuno on 04/11/2016.
@@ -21,6 +18,7 @@ import com.imaginchallenge.cookiefetch.Logic.Cookie;
 public class PlayScreen implements Screen, InputProcessor {
 
     private CookieFetch game;
+    private ArrayList<Plate> plates;
 
     //Variables relationed to the touch events
     private Vector2 finishingPoint;
@@ -39,6 +37,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
         this.game = game;
 
+
         finishingPoint = new Vector2(0,0);
         startingPoint = new Vector2(0,0);
 
@@ -48,10 +47,30 @@ public class PlayScreen implements Screen, InputProcessor {
 
         pauseButtonImage = new Texture("pauseButton.png");
 
-        cookie=new Cookie(background.getWidth(),background.getHeight(), Cookie.Type.BROWN);
+        //Creation of Plates and cookie
+        plates = new ArrayList<Plate>();
+        fillPlatesArray();
+        setPlatesInitialPosition();
+        cookie=new Cookie(background.getWidth(),background.getHeight());
+
+
 
         //Telling Libgdx what it input process so it can be called when a new input event arrives
         Gdx.input.setInputProcessor(this);
+    }
+
+    public void fillPlatesArray(){
+        for(int i = 0;i < 3; i++){
+            Plate p = new Plate(0,700 +100*i);
+            p.setRandomTexture();
+            plates.add(i,p);
+        }
+    }
+
+    public void setPlatesInitialPosition(){
+        for(int i =0;i < 3;i++){
+            plates.get(i).setPosition(0,700 +100*i);
+        }
     }
 
     @Override
@@ -73,6 +92,9 @@ public class PlayScreen implements Screen, InputProcessor {
         game.batch.draw(background,0,0);
         game.batch.draw(pauseButtonImage, (int)(width-width*0.1),0, (int)(width*0.1),(int)(height*0.05));
         cookie.render(game.batch);
+        for(int i = 0;i < 3;i++){
+            plates.get(i).render(game.batch);
+        }
         game.batch.end();
     }
 

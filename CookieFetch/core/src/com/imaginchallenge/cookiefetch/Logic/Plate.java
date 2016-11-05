@@ -1,6 +1,7 @@
 package com.imaginchallenge.cookiefetch.Logic;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -25,11 +26,21 @@ public class Plate {
     public enum Type {
         GREEN,BROWN,BLACK,RED
     }
-    public Plate(Type type){
-        this.plateType = type;
-        this.platesTextures = new ArrayList<Texture>();
+    public Plate(int x, int y){
+        platesTextures = new ArrayList<Texture>();
+        position = new Vector2();
+        rand = new Random();
         fillTexturesArray();
-        bounds=new Rectangle(position.x,position.y,this.plateImage.getWidth(),this.plateImage.getHeight());
+        setRandomTexture();
+        setPosition(x,y);
+        bounds = new Rectangle(x,y,plateImage.getWidth(),plateImage.getHeight());
+    }
+
+     public void setBoundsPosition(int x, int y){
+        bounds.set(x,y,plateImage.getWidth(),plateImage.getHeight());
+     }
+    public void setPosition(int x,int y){
+        position.set(x,y);
     }
 
     public void fillTexturesArray(){
@@ -56,7 +67,7 @@ public class Plate {
         }
     }
 
-    public void setRandomeTexture(){
+    public void setRandomTexture(){
         int randomNum = rand.nextInt((max - min) + 1) + min;
         switch (randomNum){
             case 0:
@@ -76,6 +87,10 @@ public class Plate {
                 setTexture();
                 break;
         }
+    }
+
+    public void render(SpriteBatch batch){
+        batch.draw(plateImage,position.x,position.y);
     }
 
     public boolean collides(Rectangle cookie){
