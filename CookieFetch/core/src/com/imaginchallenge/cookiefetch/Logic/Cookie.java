@@ -95,11 +95,12 @@ public class Cookie {
 
     public void resetCookie(){
         float x=width/2-cookieWidth/2;
-        position.set(0,startingY);
+        position.set(x,startingY);
         velocity.set(0,0);
         bounds.set(x,startingY,cookieWidth,cookieHeight);
         cookieSpeedX=0;
         cookieSpeedY=0;
+        cookiePressed = false;
         randomColor();
     }
 
@@ -153,6 +154,10 @@ public class Cookie {
 
         bounds.setPosition(position.x,position.y);
 
+        if(outOfBounds()){
+            resetCookie();
+        }
+
     }
 
     public void render(SpriteBatch batch){
@@ -186,6 +191,15 @@ public class Cookie {
     public void setCookieSpeed(float vx,float vy){
         cookieSpeedY=vy;
         cookieSpeedX=vx;
+    }
+
+    public boolean outOfBounds(){
+
+        if(position.x + cookieWidth < 0 || position.x > width || position.y < 0 || position.y > heigth + cookieHeight){
+            return true;
+        }
+
+        return false;
     }
 
 }

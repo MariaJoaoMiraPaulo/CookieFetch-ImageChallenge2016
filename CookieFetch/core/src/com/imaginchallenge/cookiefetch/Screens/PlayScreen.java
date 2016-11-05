@@ -181,7 +181,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
             if(ang <=Math.PI/2 && ang>=-Math.PI/2){
             cookie.setCookiePressed(true);
-            cookie.setCookieSpeed(-1 * (float) (100 * Math.sin(ang)), (float) (100 * Math.cos(ang)));
+            cookie.setCookieSpeed(-1 * (float) (20 * Math.sin(ang)), (float) (20 * Math.cos(ang)));
          }
             //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 
