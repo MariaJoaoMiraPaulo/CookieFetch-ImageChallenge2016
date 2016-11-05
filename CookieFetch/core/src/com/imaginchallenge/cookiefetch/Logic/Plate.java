@@ -163,7 +163,7 @@ public class Plate {
                 return 0;
             }
         }
-        return 0;
+        return 1;
     }
 
     public boolean collides(Rectangle cookie){
