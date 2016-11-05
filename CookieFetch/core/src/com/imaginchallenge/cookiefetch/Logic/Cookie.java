@@ -178,7 +178,7 @@ public class Cookie {
 
         batch.draw(cookieAnimation.getCurrFrame(),position.x,position.y);
 
-        Gdx.app.log("ERRO","X: "+position.x+", Y :"+position.y);
+        //Gdx.app.log("ERRO","X: "+position.x+", Y :"+position.y);
 
     }
 

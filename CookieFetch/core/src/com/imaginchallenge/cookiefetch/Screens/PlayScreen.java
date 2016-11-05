@@ -31,6 +31,7 @@ public class PlayScreen implements Screen, InputProcessor {
     private float height;
 
     private Texture pauseButtonImage;
+    private Texture heart;
 
     private Cookie cookie;
 
@@ -45,6 +46,7 @@ public class PlayScreen implements Screen, InputProcessor {
         startingPoint = new Vector2(0,0);
 
         background=new Texture("game"+game.getWorld()+".png");
+        heart = new Texture("heart.png");
         width = background.getWidth();
         height = background.getHeight();
 
@@ -63,7 +65,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
     public void fillPlatesArray(){
         for(int i = 0;i < 3; i++){
-            Plate p = new Plate(width,height,i*300+1100);
+            Plate p = new Plate(width,height,i*300+1000);
             p.setRandomTexture();
             plates.add(i,p);
         }
@@ -79,7 +81,10 @@ public class PlayScreen implements Screen, InputProcessor {
         cookie.update(delta);
         for(int i = 0;i < 3;i++){
             plates.get(i).update(delta);
+            //Gdx.app.log("ola"," " + plates.get(i).checkColision(cookie));
             player.setLives(plates.get(i).checkColision(cookie));
+            Gdx.app.log("Vidas"," "+player.getLives());
+            Gdx.app.log("BOUNDS"," " + plates.get(0).getBounds().x);
         }
     }
 
@@ -92,6 +97,9 @@ public class PlayScreen implements Screen, InputProcessor {
         game.batch.begin();
         game.batch.draw(background,0,0);
         game.batch.draw(pauseButtonImage, (int)(width-width*0.1),0, (int)(width*0.1),(int)(height*0.05));
+        for ( int i= 0 ;i < player.getLives();i++){
+            game.batch.draw(heart,0+100*i, 1800, 100, 100);
+        }
         cookie.render(game.batch);
         for(int i = 0;i < 3;i++){
             plates.get(i).render(game.batch);

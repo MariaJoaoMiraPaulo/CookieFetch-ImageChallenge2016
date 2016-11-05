@@ -1,5 +1,6 @@
 package com.imaginchallenge.cookiefetch.Logic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,6 +26,11 @@ public class Plate {
     private static final int V_WIDTH=1080;
 	private static final int V_HEIGHT=1920;
     private TypePlate plateType;
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
     private Rectangle bounds;
     private Vector2 position;
     private float width;
@@ -63,9 +69,9 @@ public class Plate {
 
     public void setRandomVelocity(boolean positive){
         if(positive)
-            velX = rand.nextInt(4) +8;
+            velX = rand.nextInt(8) +2;
         else
-            velX = - (rand.nextInt(4) +8);
+            velX = - (rand.nextInt(8) +2);
     }
 
     public void setBoundsPosition(float x, float y){
@@ -108,33 +114,61 @@ public class Plate {
             setRandomTexture();
         }
 
-        move(velX);
-        setBoundsPosition(position.x,position.y);
+            move(velX);
+            setBoundsPosition(position.x, position.y);
+        
+
     }
 
     public int checkColision(Cookie cookie){
+
         if(collides(cookie.getBounds())){
-            cookie.resetCookie();
-            switch (plateType){
+            if(plateType == TypePlate.BLACK){
+                cookie.resetCookie();
+                return -1;
+            }else {
+                cookie.resetCookie();
+                return 0;
+            }
+
+
+            /*switch (plateType){
                 case BLACK:
+                    cookie.resetCookie();
                     return -1;
                 case RED:
-                    if(cookie.getCookieType()==Cookie.Type.RED) return 1;
+                    if(cookie.getCookieType()==Cookie.Type.RED){
+                        cookie.resetCookie();
+                        return 0;
+                    }
+                    cookie.resetCookie();
                     break;
                 case GREEN:
-                    if(cookie.getCookieType()==Cookie.Type.GREEN) return 1;
+                    if(cookie.getCookieType()==Cookie.Type.GREEN){
+                        cookie.resetCookie();
+                        return 0;
+                    }
+                    cookie.resetCookie();
                     break;
                 case BROWN:
-                    if(cookie.getCookieType()==Cookie.Type.BROWN) return 1;
+                    if(cookie.getCookieType()==Cookie.Type.BROWN){
+                        cookie.resetCookie();
+                        return 0;
+                    }
+                    cookie.resetCookie();
                     break;
                 default:
                     break;
-            }
+            }*/
+
         }
         return 0;
     }
 
     public boolean collides(Rectangle cookie){
+        if(cookie.overlaps(bounds))
+         Gdx.app.log("colide: ", "SIM");
+        else Gdx.app.log("colide: ", "NAO");
         return cookie.overlaps(bounds);
     }
 
@@ -143,7 +177,7 @@ public class Plate {
         switch(platesIndice){
 
             case 0:
-                plateType=TypePlate.BLACK;
+                plateType=TypePlate.GREEN;
                 break;
             case 1:
                 plateType=TypePlate.BROWN;
@@ -153,6 +187,8 @@ public class Plate {
                 break;
             case 3:
                 plateType=TypePlate.BLACK;
+                break;
+            default:
                 break;
         }
     }
