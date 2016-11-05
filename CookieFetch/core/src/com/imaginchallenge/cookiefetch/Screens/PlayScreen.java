@@ -172,11 +172,12 @@ public class PlayScreen implements Screen, InputProcessor {
 
             Vector2 tmpVetor2 = new Vector2(0, 0 - startingPoint.y);
 
-            cookie.setCookiePressed(true);
-
             float ang = ((float) Math.PI * tmpVetor1.angle(tmpVetor2)) / 180;
 
-            cookie.setCookieSpeed(-1 * (float) (100 * Math.sin(ang)), (float) (100 * Math.cos(ang)));
+            if(ang<=Math.PI/2 && ang>=-Math.PI/2) {
+                cookie.setCookiePressed(true);
+                cookie.setCookieSpeed(-1 * (float) (100 * Math.sin(ang)), (float) (100 * Math.cos(ang)));
+            }
 
             //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 
