@@ -114,10 +114,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
     public void update(float delta){
         gameTime+=delta;
-        Gdx.app.log("ENTREI"," "+gameTime);
         if(gameTime > 20){
             cookieVelocityMultiplier = 40;
-            Gdx.app.log("ENTREI"," "+cookieVelocityMultiplier);
         }
 
         cookie.update(delta);
