@@ -48,7 +48,7 @@ public class HighScoreScreen implements Screen{
     public HighScoreScreen(CookieFetch game)
     {
         this.game=game;
-        background = new Texture("menu.png");
+        background = new Texture("highScore.png");
         width = background.getWidth();
         height = background.getHeight();
         highScoreCam=new OrthographicCamera();
