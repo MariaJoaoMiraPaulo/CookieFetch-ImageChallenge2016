@@ -7,8 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.imaginchallenge.cookiefetch.Logic.Cookie;
+import com.imaginchallenge.cookiefetch.Logic.Plate;
+
+import java.util.ArrayList;
 
 /**
  * Created by Nuno on 04/11/2016.
@@ -17,6 +21,7 @@ import com.imaginchallenge.cookiefetch.Logic.Cookie;
 public class PlayScreen implements Screen, InputProcessor {
 
     private CookieFetch game;
+    private ArrayList<Plate> plates;
 
     //Variables relationed to the touch events
     private Vector2 finishingPoint;
@@ -35,10 +40,22 @@ public class PlayScreen implements Screen, InputProcessor {
 
         background=new Texture("game.png");
 
+        //Creation of Plates and cookie
+
         cookie=new Cookie(background.getWidth(),background.getHeight(), Cookie.Type.BROWN);
+
+
 
         //Telling Libgdx what it input process so it can be called when a new input event arrives
         Gdx.input.setInputProcessor(this);
+    }
+
+    public void fillPlatesArray(){
+        for(int i = 0;i < 4; i++){
+            //Plate p = new Plate();
+            //p.setRandomTexture();
+            //plates.add(i,p);
+        }
     }
 
     @Override
