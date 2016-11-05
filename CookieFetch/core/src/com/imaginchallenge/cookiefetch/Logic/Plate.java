@@ -35,14 +35,14 @@ public class Plate {
     private Vector2 position;
     private float width;
     private float height;
-    private int platesWidth;
-    private int platesHeight;
+  //  private int platesWidth;
+  //  private int platesHeight;
     private ArrayList<Texture> platesTextures;  // 0- green, 1- brown, 2- red, 3- black
     private int platesIndice;
     private Random rand;
     private int min=0, max=3;
     private int plateWidth = 270 ;
-    private int plateLength = 150 ;
+    private int plateHeight = 150 ;
     private int velX;
 
     public Plate(float width,float height,int y){
@@ -56,7 +56,7 @@ public class Plate {
         rand = new Random();
         setRandomVelocity(true);
 
-        int x=platesWidth;
+        int x=plateWidth;
 
 
 
@@ -64,7 +64,7 @@ public class Plate {
 
         setRandomTexture();
 
-        bounds = new Rectangle(x,y,platesWidth,platesHeight);
+        bounds = new Rectangle(x,y,plateWidth,plateHeight);
     }
 
     public void setRandomVelocity(boolean positive){
@@ -75,7 +75,7 @@ public class Plate {
     }
 
     public void setBoundsPosition(float x, float y){
-        bounds.set(x,y,platesWidth,platesHeight);
+        bounds.set(x,y,plateWidth,plateHeight);
      }
 
     public void fillTexturesArray(){
@@ -83,9 +83,6 @@ public class Plate {
         for(int i=1;i<=NUM_TEXTURES_PLATES;i++){
             platesTextures.add(i-1,new Texture("plate"+i+".png"));
         }
-
-        platesHeight=platesTextures.get(0).getHeight();
-        platesWidth=platesTextures.get(0).getWidth();
 
     }
 
@@ -96,7 +93,7 @@ public class Plate {
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(platesTextures.get(platesIndice),position.x,position.y, plateWidth,plateLength);
+        batch.draw(platesTextures.get(platesIndice),position.x,position.y, plateWidth,plateHeight);
     }
 
     public void move(int x){
