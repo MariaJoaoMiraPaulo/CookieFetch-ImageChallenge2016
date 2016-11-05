@@ -6,7 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.imaginchallenge.cookiefetch.Logic.Cookie;
 
@@ -21,10 +25,15 @@ public class PlayScreen implements Screen, InputProcessor {
     //Variables relationed to the touch events
     private Vector2 finishingPoint;
     private Vector2 startingPoint;
-    private float distance;
+
     private Texture background;
+    private float width;
+    private float height;
+
+    private Texture pauseButtonImage;
 
     private Cookie cookie;
+
 
     public PlayScreen(CookieFetch game){
 
@@ -34,6 +43,10 @@ public class PlayScreen implements Screen, InputProcessor {
         startingPoint = new Vector2(0,0);
 
         background=new Texture("game.png");
+        width = background.getWidth();
+        height = background.getHeight();
+
+        pauseButtonImage = new Texture("pauseButton.png");
 
         cookie=new Cookie(background.getWidth(),background.getHeight(), Cookie.Type.BROWN);
 
@@ -58,6 +71,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
         game.batch.begin();
         game.batch.draw(background,0,0);
+        game.batch.draw(pauseButtonImage, (int)(width-width*0.1),0, (int)(width*0.1),(int)(height*0.05));
         cookie.render(game.batch);
         game.batch.end();
     }
@@ -104,6 +118,13 @@ public class PlayScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if(screenX > Gdx.graphics.getWidth() - width*0.1 && screenX < Gdx.graphics.getWidth() &&
+                screenY > Gdx.graphics.getHeight() - height*0.05 && screenY < Gdx.graphics.getHeight()){
+            Screen screen = new PauseScreen(game);
+            game.setScreen(screen);
+            dispose();
+        }
 
         Gdx.app.log("Toque", " "+ screenX + " " + screenY);
 
