@@ -57,14 +57,14 @@ public class Cookie {
     private int heigth;
     private Texture texture;
 
-    public Cookie(int width,int height,Type type){
+    public Cookie(int width,int height){
         cookieTextures = new ArrayList<Texture>();
 
         this.width = width;
         this.heigth = height;
 
         fillTextures();
-        selectTexture(type);
+        randomColor();
 
         cookieWidth=texture.getWidth()/5;
         cookieHeight=texture.getHeight();
@@ -75,7 +75,6 @@ public class Cookie {
         position=new Vector2(x,startingY);
         velocity=new Vector2(0,0);
 
-        cookieType=type;
 
         bounds=new Rectangle(x,startingY,cookieWidth,cookieHeight);
 
@@ -86,13 +85,10 @@ public class Cookie {
     }
 
     private void fillTextures(){
-        Texture tex1 = new Texture("cookie1.png");
-        Texture tex2 = new Texture("cookie2.png");
-        Texture tex3 = new Texture("cookie3.png");
-        Texture tex4 = new Texture("cookie4.png");
-        cookieTextures.add(1,tex2);
-        cookieTextures.add(2,tex3);
-        cookieTextures.add(3,tex4);
+        cookieTextures.add(0,new Texture("cookie1.png"));
+        cookieTextures.add(1,new Texture("cookie2.png"));
+        cookieTextures.add(2,new Texture("cookie3.png"));
+        cookieTextures.add(3,new Texture("cookie4.png"));
     }
 
     public void resetCookie(){

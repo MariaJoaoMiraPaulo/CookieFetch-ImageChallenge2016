@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.imaginchallenge.cookiefetch.CookieFetch;
@@ -35,6 +36,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
         this.game = game;
 
+
         finishingPoint = new Vector2(0,0);
         startingPoint = new Vector2(0,0);
 
@@ -42,7 +44,9 @@ public class PlayScreen implements Screen, InputProcessor {
 
         //Creation of Plates and cookie
 
-        cookie=new Cookie(background.getWidth(),background.getHeight(), Cookie.Type.BROWN);
+        fillPlatesArray();
+        setPlatesInitialPosition();
+        cookie=new Cookie(background.getWidth(),background.getHeight());
 
 
 
@@ -51,10 +55,16 @@ public class PlayScreen implements Screen, InputProcessor {
     }
 
     public void fillPlatesArray(){
-        for(int i = 0;i < 4; i++){
-            Plate p = new Plate();
-            //p.setRandomTexture();
-            //plates.add(i,p);
+        for(int i = 0;i < 3; i++){
+            Plate p = new Plate(0,700 +100*i);
+            p.setRandomTexture();
+            plates.add(i,p);
+        }
+    }
+
+    public void setPlatesInitialPosition(){
+        for(int i =0;i < 3;i++){
+            plates.get(i).setPosition(0,700 +100*i);
         }
     }
 
@@ -76,6 +86,9 @@ public class PlayScreen implements Screen, InputProcessor {
         game.batch.begin();
         game.batch.draw(background,0,0);
         cookie.render(game.batch);
+        for(int i = 0;i < 3;i++){
+            plates.get(i).render(game.batch);
+        }
         game.batch.end();
     }
 
