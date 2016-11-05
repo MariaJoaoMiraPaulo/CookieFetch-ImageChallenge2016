@@ -132,55 +132,25 @@ public class Plate {
 
     }
 
-    public int checkColision(Cookie cookie){
+    public int checkColision(Cookie cookie) {
 
-        if(collides(cookie.getBounds())){
-            if(plateType == TypePlate.BLACK){
+        if (collides(cookie.getBounds())) {
+
+            if (plateType == TypePlate.BLACK) {
                 cookie.resetCookie();
                 return -1;
-            }else {
+            } else {
                 cookie.resetCookie();
                 return 0;
             }
 
-
-            /*switch (plateType){
-                case BLACK:
-                    cookie.resetCookie();
-                    return -1;
-                case RED:
-                    if(cookie.getCookieType()==Cookie.Type.RED){
-                        cookie.resetCookie();
-                        return 0;
-                    }
-                    cookie.resetCookie();
-                    break;
-                case GREEN:
-                    if(cookie.getCookieType()==Cookie.Type.GREEN){
-                        cookie.resetCookie();
-                        return 0;
-                    }
-                    cookie.resetCookie();
-                    break;
-                case BROWN:
-                    if(cookie.getCookieType()==Cookie.Type.BROWN){
-                        cookie.resetCookie();
-                        return 0;
-                    }
-                    cookie.resetCookie();
-                    break;
-                default:
-                    break;
-            }*/
-
         }
-        return 0;
+
+        return 1;
     }
 
     public boolean collides(Rectangle cookie){
-        if(cookie.overlaps(bounds))
-         Gdx.app.log("colide: ", "SIM");
-        else Gdx.app.log("colide: ", "NAO");
+
         return cookie.overlaps(bounds);
     }
 
