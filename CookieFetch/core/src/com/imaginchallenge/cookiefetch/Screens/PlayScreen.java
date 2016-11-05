@@ -134,28 +134,34 @@ public class PlayScreen implements Screen, InputProcessor {
 
         finishingPoint.set(screenX, screenY);
 
+        Gdx.app.log("Toque", "FINAL "+ screenX + " " + screenY);
+
+        Gdx.app.log("Toque", "INICIAL "+ startingPoint.x + " " + startingPoint.y);
+
         Vector2 tmpVetor1=new Vector2(finishingPoint.x-startingPoint.x,finishingPoint.y-startingPoint.y);
 
-        Vector2 tmpVetor2=new Vector2(finishingPoint.x-startingPoint.x,1920-startingPoint.y);
+        Vector2 tmpVetor2=new Vector2(0,0-startingPoint.y);
 
         cookie.setCookiePressed(true);
 
-        float ang =tmpVetor1.angle(tmpVetor2);
+        float ang = ((float)Math.PI*tmpVetor1.angle(tmpVetor2))/180;
 
-        cookie.setCookieSpeed((float)(100*Math.sin(ang)),(float)(100*Math.cos(ang)));
 
-        distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
+        cookie.setCookieSpeed(-1*(float)(100*Math.sin(ang)),(float)(100*Math.cos(ang)));
 
-        Gdx.app.log("CENAS", "Distancia "+distance);
+        //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 
-        double screenDistance = Math.sqrt(Math.pow(Gdx.graphics.getWidth(),2) + Math.pow(Gdx.graphics.getHeight(),2));
+        Gdx.app.log("Toque", "Angulo "+ang);
+        Gdx.app.log("Toque", "Valores "+(float)(100*Math.sin(ang)) + " " + (float)(100*Math.cos(ang)));
+
+      /*  double screenDistance = Math.sqrt(Math.pow(Gdx.graphics.getWidth(),2) + Math.pow(Gdx.graphics.getHeight(),2));
 
         Gdx.app.log("CENAS", "Screen Distancia "+screenDistance);
 
         if(distance > (screenDistance*0.2)){
             Gdx.app.log("CENAS", "Aqui vai");
             //imgPosition.set(finishingPoint.x, Gdx.graphics.getHeight()-img.getHeight());
-        }
+        }*/
 
         startingPoint.set(0,0);
         finishingPoint.set(0,0);
