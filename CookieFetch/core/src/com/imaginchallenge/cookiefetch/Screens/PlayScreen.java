@@ -132,6 +132,10 @@ public class PlayScreen implements Screen, InputProcessor {
 
         scoreLabel.setText(String.format("%06d", highscore.getScore()));
 
+        if(player.getLives() == 0){
+            game.setScreen(new MenuScreen(game));
+        }
+
         //TODO: Condição para acabar o jogo
         //highscore.saveScore();
     }
