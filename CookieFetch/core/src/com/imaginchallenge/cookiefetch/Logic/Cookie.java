@@ -97,7 +97,7 @@ public class Cookie {
             cookieAnimation.update(delta);
 
         //if(cookiePressed)
-            move(cookieSpeedX,cookieSpeedY,0);
+        move(cookieSpeedX,cookieSpeedY,0);
 
         bounds.setPosition(position.x,position.y);
 
@@ -112,7 +112,7 @@ public class Cookie {
     }
 
     public void setCookiePressed(Boolean pressed){
-        cookiePressed=true;
+        cookiePressed=pressed;
     }
 
     public void move(float x,float y,float delta){
@@ -121,8 +121,6 @@ public class Cookie {
         velocity.y = y;
 
         position.add(velocity.x, velocity.y);
-
-        position.add(0, MOVEMENT * delta);
     }
 
     public int getCookieWidth(){
