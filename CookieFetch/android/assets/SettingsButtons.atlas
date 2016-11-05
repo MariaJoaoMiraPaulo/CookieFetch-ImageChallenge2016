@@ -1,0 +1,47 @@
+
+SettingsButtons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+HomeButton
+  rotate: false
+  xy: 1, 261
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+HomePressed
+  rotate: false
+  xy: 1, 131
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+LeftButton
+  rotate: false
+  xy: 127, 261
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+LeftPressed
+  rotate: false
+  xy: 1, 1
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+RightButton
+  rotate: false
+  xy: 127, 131
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1
+RightPressed
+  rotate: false
+  xy: 127, 1
+  size: 124, 128
+  orig: 124, 128
+  offset: 0, 0
+  index: -1

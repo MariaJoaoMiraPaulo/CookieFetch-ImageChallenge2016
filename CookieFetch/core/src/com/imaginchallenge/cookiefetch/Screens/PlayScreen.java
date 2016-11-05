@@ -3,12 +3,23 @@ package com.imaginchallenge.cookiefetch.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.imaginchallenge.cookiefetch.Logic.Cookie;
+import com.imaginchallenge.cookiefetch.Logic.Highscore;
 import com.imaginchallenge.cookiefetch.Logic.Plate;
 import com.imaginchallenge.cookiefetch.Logic.Player;
+import com.imaginchallenge.cookiefetch.Sprite.Hud;
 
 import java.util.ArrayList;
 
@@ -29,6 +40,12 @@ public class PlayScreen implements Screen, InputProcessor {
     private Texture background;
     private float width;
     private float height;
+    private Highscore highscore;
+    private Label scoreLabel;
+    private Stage stage;
+    private Table table;
+    public Viewport viewport;
+
 
     private Texture pauseButtonImage;
 
@@ -55,6 +72,22 @@ public class PlayScreen implements Screen, InputProcessor {
         fillPlatesArray();
         cookie=new Cookie(background.getWidth(),background.getHeight());
 
+        highscore=new Highscore(game.getWorld());
+
+        viewport=new StretchViewport(CookieFetch.V_WIDTH,CookieFetch.V_HEIGHT);
+        stage=new Stage(viewport,game.batch);
+
+        scoreLabel = new Label(String.format("%06d", highscore.getScore()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel.setFontScale(3);
+
+        table = new Table();
+        table.setFillParent(true);
+        table.top();
+        table.add(scoreLabel).right().top().expandX().padTop(20).padRight(width/2-50-scoreLabel.getWidth()/2);
+
+        stage.addActor(table);
+
+
 
 
         //Telling Libgdx what it input process so it can be called when a new input event arrives
@@ -79,8 +112,22 @@ public class PlayScreen implements Screen, InputProcessor {
         cookie.update(delta);
         for(int i = 0;i < 3;i++){
             plates.get(i).update(delta);
-            player.setLives(plates.get(i).checkColision(cookie));
+
+            int col=plates.get(i).checkColision(cookie);
+
+            if(col==-1)
+            {
+                player.setLives(col);
+            }
+            else if(col==1){
+                highscore.update(10);
+            }
         }
+
+        scoreLabel.setText(String.format("%06d", highscore.getScore()));
+
+        //TODO: Condição para acabar o jogo
+        //highscore.saveScore();
     }
 
 
@@ -97,6 +144,7 @@ public class PlayScreen implements Screen, InputProcessor {
             plates.get(i).render(game.batch);
         }
         game.batch.end();
+        stage.draw();
     }
 
     @Override
