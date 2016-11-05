@@ -17,7 +17,7 @@ public class Plate {
 
     public static final int V_WIDTH=1080;
 	public static final int V_HEIGHT=1920;
-    private Type plateType;
+    private TypePlate plateType;
     private Texture plateImage;
     private Rectangle bounds;
     private Vector2 position;
@@ -29,7 +29,7 @@ public class Plate {
     private int velX;
 
 
-    public enum Type {
+    public enum TypePlate {
         GREEN,BROWN,BLACK,RED
     }
     public Plate(int x, int y){
@@ -83,19 +83,19 @@ public class Plate {
         int randomNum = rand.nextInt((max - min) + 1) + min;
         switch (randomNum){
             case 0:
-                plateType=Type.GREEN;
+                plateType=TypePlate.GREEN;
                 setTexture();
                 break;
             case 1:
-                plateType=Type.BROWN;
+                plateType=TypePlate.BROWN;
                 setTexture();
                 break;
             case 2:
-                plateType=Type.BLACK;
+                plateType=TypePlate.BLACK;
                 setTexture();
                 break;
             case 3:
-                plateType= Type.RED;
+                plateType= TypePlate.RED;
                 setTexture();
                 break;
         }
@@ -120,6 +120,28 @@ public class Plate {
 
         move(velX);
         setBoundsPosition(position.x,position.y);
+    }
+
+    public int checkColision(Cookie cookie){
+        if(collides(cookie.getBounds())){
+            cookie.resetCookie();
+            switch (plateType){
+                case BLACK:
+                    return -1;
+                case RED:
+                    if(cookie.getCookieType()==Cookie.Type.RED) return 1;
+                    break;
+                case GREEN:
+                    if(cookie.getCookieType()==Cookie.Type.GREEN) return 1;
+                    break;
+                case BROWN:
+                    if(cookie.getCookieType()==Cookie.Type.BROWN) return 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return 0;
     }
 
     public boolean collides(Rectangle cookie){

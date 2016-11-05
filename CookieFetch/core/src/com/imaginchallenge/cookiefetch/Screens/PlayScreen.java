@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.imaginchallenge.cookiefetch.Logic.Cookie;
 import com.imaginchallenge.cookiefetch.Logic.Plate;
+import com.imaginchallenge.cookiefetch.Logic.Player;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
     private CookieFetch game;
     private ArrayList<Plate> plates;
+    private Player player;
 
     //Variables relationed to the touch events
     private Vector2 finishingPoint;
@@ -36,6 +38,7 @@ public class PlayScreen implements Screen, InputProcessor {
     public PlayScreen(CookieFetch game){
 
         this.game = game;
+        player = new Player();
 
 
         finishingPoint = new Vector2(0,0);
@@ -85,8 +88,10 @@ public class PlayScreen implements Screen, InputProcessor {
         cookie.update(delta);
         for(int i = 0;i < 3;i++){
             plates.get(i).update(delta);
+            player.setLives(plates.get(i).checkColision(cookie));
         }
     }
+
 
     @Override
     public void render(float delta) {

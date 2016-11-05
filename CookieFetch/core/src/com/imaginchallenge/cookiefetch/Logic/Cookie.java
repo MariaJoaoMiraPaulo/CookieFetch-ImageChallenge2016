@@ -44,6 +44,11 @@ public class Cookie {
     private Rectangle bounds;
 
     private Animation cookieAnimation;
+
+    public Type getCookieType() {
+        return cookieType;
+    }
+
     private Type cookieType;
     private int cookieWidth;
     private int cookieHeight;
@@ -84,6 +89,9 @@ public class Cookie {
 
         cookieSpeedX=0;
         cookieSpeedY=0;
+    }
+    public Rectangle getBounds(){
+        return bounds;
     }
 
     private void fillTextures(){

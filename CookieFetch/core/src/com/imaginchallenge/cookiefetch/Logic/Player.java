@@ -1,4 +1,4 @@
-package com.imaginchallenge.quizroad.Logic;
+package com.imaginchallenge.cookiefetch.Logic;
 
 /**
  * Created by antoniomelo on 11/4/16.
@@ -25,8 +25,8 @@ public class Player {
         return lives;
     }
 
-    public void takeLive(){
-        lives--;
+    public void setLives(int l){
+        lives+=l;
     }
 
     public void killPlayer(){
