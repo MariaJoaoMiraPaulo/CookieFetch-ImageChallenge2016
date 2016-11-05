@@ -44,6 +44,11 @@ public class Cookie {
     private Rectangle bounds;
 
     private Animation cookieAnimation;
+
+    public Type getCookieType() {
+        return cookieType;
+    }
+
     private Type cookieType;
     private int cookieWidth;
     private int cookieHeight;
@@ -85,6 +90,9 @@ public class Cookie {
         cookieSpeedX=0;
         cookieSpeedY=0;
     }
+    public Rectangle getBounds(){
+        return bounds;
+    }
 
     private void fillTextures(){
         cookieTextures.add(0,new Texture("cookie1.png"));
@@ -95,7 +103,7 @@ public class Cookie {
 
     public void resetCookie(){
         float x=width/2-cookieWidth/2;
-        position.set(0,startingY);
+        position.set(x,startingY);
         velocity.set(0,0);
         bounds.set(x,startingY,cookieWidth,cookieHeight);
         cookieSpeedX=0;
