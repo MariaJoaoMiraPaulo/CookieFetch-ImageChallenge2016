@@ -116,7 +116,7 @@ public class Plate {
 
             move(velX);
             setBoundsPosition(position.x, position.y);
-        
+
 
     }
 

@@ -68,21 +68,21 @@ public class SettingsScreen implements Screen {
         }
 
         //buttons
-        ButtonsPack = new TextureAtlas("menuButtons.atlas");
+        ButtonsPack = new TextureAtlas("SettingsButtons.atlas");
         skin = new Skin();
         skin.addRegions(ButtonsPack);
         style = new ImageButton.ImageButtonStyle();
 
         style = new ImageButton.ImageButtonStyle();
-        style.up = skin.getDrawable("PlayButton");
-        style.down = skin.getDrawable("PlayPressed");
+        style.up = skin.getDrawable("LeftButton");
+        style.down = skin.getDrawable("LeftPressed");
         leftButton = new ImageButton(style);
         leftButton.setPosition(75,height/2-200);
         leftButton.setSize(150,150);
 
         style = new ImageButton.ImageButtonStyle();
-        style.up = skin.getDrawable("HighScoresButton");
-        style.down = skin.getDrawable("HighScoresPressed");
+        style.up = skin.getDrawable("RightButton");
+        style.down = skin.getDrawable("RightPressed");
         rightButton = new ImageButton(style);
         rightButton.setPosition(width-80-rightButton.getWidth(),height/2-200);
         rightButton.setSize(150,150);
