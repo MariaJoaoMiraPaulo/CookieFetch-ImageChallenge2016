@@ -52,6 +52,9 @@ public class PlayScreen implements Screen, InputProcessor {
 
     private Cookie cookie;
 
+    private float gameTime;
+    private int cookieVelocityMultiplier;
+
 
     public PlayScreen(CookieFetch game){
 
@@ -89,8 +92,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
         stage.addActor(table);
 
-
-
+        gameTime = 0;
+        cookieVelocityMultiplier = 25;
 
         //Telling Libgdx what it input process so it can be called when a new input event arrives
         Gdx.input.setInputProcessor(this);
@@ -110,15 +113,18 @@ public class PlayScreen implements Screen, InputProcessor {
     }
 
     public void update(float delta){
+        gameTime+=delta;
+        Gdx.app.log("ENTREI"," "+gameTime);
+        if(gameTime > 20){
+            cookieVelocityMultiplier = 40;
+            Gdx.app.log("ENTREI"," "+cookieVelocityMultiplier);
+        }
 
         cookie.update(delta);
         for(int i = 0;i < 3;i++){
             plates.get(i).update(delta);
             //Gdx.app.log("ola"," " + plates.get(i).checkColision(cookie));
             player.setLives(plates.get(i).checkColision(cookie));
-            Gdx.app.log("Vidas"," "+player.getLives());
-            Gdx.app.log("BOUNDS"," " + plates.get(0).getBounds().x);
-
             int col=plates.get(i).checkColision(cookie);
 
             if(col==-1)
@@ -238,7 +244,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
             if(ang <=Math.PI/2 && ang>=-Math.PI/2){
             cookie.setCookiePressed(true);
-            cookie.setCookieSpeed(-1 * (float) (25 * Math.sin(ang)), (float) (25 * Math.cos(ang)));
+
+            cookie.setCookieSpeed(-1 * (float) (cookieVelocityMultiplier * Math.sin(ang)), (float) (cookieVelocityMultiplier * Math.cos(ang)));
          }
             //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 

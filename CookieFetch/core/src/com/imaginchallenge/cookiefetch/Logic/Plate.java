@@ -44,6 +44,8 @@ public class Plate {
     private int plateWidth = 270 ;
     private int plateHeight = 150 ;
     private int velX;
+    private int minimumVelocity;
+    private double gameTime;
 
     public Plate(float width,float height,int y){
 
@@ -53,6 +55,8 @@ public class Plate {
         platesTextures = new ArrayList<Texture>();
         fillTexturesArray();
 
+        gameTime = 0;
+        minimumVelocity = 4;
         rand = new Random();
         setRandomVelocity(true);
 
@@ -69,9 +73,9 @@ public class Plate {
 
     public void setRandomVelocity(boolean positive){
         if(positive)
-            velX = rand.nextInt(8) +2;
+            velX = rand.nextInt(6) +minimumVelocity;
         else
-            velX = - (rand.nextInt(8) +2);
+            velX = - (rand.nextInt(6) + minimumVelocity);
     }
 
     public void setBoundsPosition(float x, float y){
@@ -101,6 +105,17 @@ public class Plate {
     }
 
     public void update(float delta){
+        gameTime += delta;
+
+        if(gameTime > 10){
+            minimumVelocity = 8;
+        }
+        if(gameTime > 15){
+            minimumVelocity = 12;
+        }
+        if(gameTime > 20){
+            minimumVelocity = 16;
+        }
 
         if((position.x +plateWidth) >= V_WIDTH && velX>0){
             setRandomVelocity(false);
