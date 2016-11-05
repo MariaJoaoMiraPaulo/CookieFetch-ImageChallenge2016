@@ -1,7 +1,6 @@
 package com.imaginchallenge.cookiefetch.Logic;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -28,6 +27,7 @@ public class Plate {
     }
     public Plate(Type type){
         this.plateType = type;
+        this.platesTextures = new ArrayList<Texture>();
         fillTexturesArray();
         bounds=new Rectangle(position.x,position.y,this.plateImage.getWidth(),this.plateImage.getHeight());
     }
