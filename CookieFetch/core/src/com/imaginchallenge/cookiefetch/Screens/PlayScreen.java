@@ -52,6 +52,9 @@ public class PlayScreen implements Screen, InputProcessor {
 
     private Cookie cookie;
 
+    private float gameTime;
+    private int cookieVelocityMultiplier;
+
 
     public PlayScreen(CookieFetch game){
 
@@ -76,6 +79,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
         highscore=new Highscore(game.getWorld());
 
+        Gdx.app.log("HIGHSCORE: ","HIGHSCORE:"+game.getWorld());
+
         viewport=new StretchViewport(CookieFetch.V_WIDTH,CookieFetch.V_HEIGHT);
         stage=new Stage(viewport,game.batch);
 
@@ -89,8 +94,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
         stage.addActor(table);
 
-
-
+        gameTime = 0;
+        cookieVelocityMultiplier = 25;
 
         //Telling Libgdx what it input process so it can be called when a new input event arrives
         Gdx.input.setInputProcessor(this);
@@ -110,29 +115,34 @@ public class PlayScreen implements Screen, InputProcessor {
     }
 
     public void update(float delta){
+        gameTime+=delta;
+        if(gameTime > 20){
+            cookieVelocityMultiplier = 40;
+        }
 
         cookie.update(delta);
         for(int i = 0;i < 3;i++){
             plates.get(i).update(delta);
-            //Gdx.app.log("ola"," " + plates.get(i).checkColision(cookie));
-            player.setLives(plates.get(i).checkColision(cookie));
-            Gdx.app.log("Vidas"," "+player.getLives());
-            Gdx.app.log("BOUNDS"," " + plates.get(0).getBounds().x);
 
-            int col=plates.get(i).checkColision(cookie);
+            int plateCol=plates.get(i).checkColision(cookie);
 
-            if(col==-1)
-            {
-                player.setLives(col);
+            if(plateCol==-1){
+                player.setLives(plateCol);
             }
-            else if(col==1){
+
+
+            if(plateCol==0)
+            {
                 highscore.update(10);
             }
+
+
         }
 
         scoreLabel.setText(String.format("%06d", highscore.getScore()));
 
         if(player.getLives() == 0){
+            highscore.saveScore();
             game.setScreen(new GameOverScreen(game));
         }
 
@@ -238,7 +248,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
             if(ang <=Math.PI/2 && ang>=-Math.PI/2){
             cookie.setCookiePressed(true);
-            cookie.setCookieSpeed(-1 * (float) (25 * Math.sin(ang)), (float) (25 * Math.cos(ang)));
+
+            cookie.setCookieSpeed(-1 * (float) (dist*0.2 * Math.sin(ang)), (float) (dist*0.2 * Math.cos(ang)));
          }
             //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 

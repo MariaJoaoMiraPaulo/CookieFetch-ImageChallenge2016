@@ -126,6 +126,7 @@ public class HighScoreScreen implements Screen{
             highScore2 = Integer.parseInt(highscoreString);
         }
         else{
+            Gdx.app.log("MERDA1","MERDA1");
             highScore2 = 0;
         }
 
@@ -136,6 +137,7 @@ public class HighScoreScreen implements Screen{
             highScore3 = Integer.parseInt(highscoreString);
         }
         else{
+            Gdx.app.log("MERDA2","MERDA2");
             highScore3 = 0;
         }
     }

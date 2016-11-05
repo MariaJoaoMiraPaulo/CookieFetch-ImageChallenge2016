@@ -46,6 +46,9 @@ public class Plate {
     private int plateHeight = 150 ;
     private int velX;
     public static Music music = null;
+    private int minimumVelocity;
+    private double gameTime;
+
 
     public Plate(float width,float height,int y){
 
@@ -58,6 +61,8 @@ public class Plate {
         platesTextures = new ArrayList<Texture>();
         fillTexturesArray();
 
+        gameTime = 0;
+        minimumVelocity = 4;
         rand = new Random();
         setRandomVelocity(true);
 
@@ -74,9 +79,9 @@ public class Plate {
 
     public void setRandomVelocity(boolean positive){
         if(positive)
-            velX = rand.nextInt(8) +2;
+            velX = rand.nextInt(6) +minimumVelocity;
         else
-            velX = - (rand.nextInt(8) +2);
+            velX = - (rand.nextInt(6) + minimumVelocity);
     }
 
     public void setBoundsPosition(float x, float y){
@@ -106,6 +111,17 @@ public class Plate {
     }
 
     public void update(float delta){
+        gameTime += delta;
+
+        if(gameTime > 10){
+            minimumVelocity = 8;
+        }
+        if(gameTime > 15){
+            minimumVelocity = 12;
+        }
+        if(gameTime > 20){
+            minimumVelocity = 14;
+        }
 
         if((position.x +plateWidth) >= V_WIDTH && velX>0){
             setRandomVelocity(false);
@@ -122,28 +138,27 @@ public class Plate {
 
     }
 
-    public int checkColision(Cookie cookie){
+    public int checkColision(Cookie cookie) {
 
-        if(collides(cookie.getBounds())){
-            if(plateType == TypePlate.BLACK){
-                music.play();
+        if (collides(cookie.getBounds())) {
+            if (plateType == TypePlate.BLACK) {
                 cookie.resetCookie();
                 return -1;
-            }else {
-                switch (plateType){
+            } else {
+                switch (plateType) {
                     case GREEN:
-                        if(cookie.getCookieType() == Cookie.Type.GREEN)
+                        if (cookie.getCookieType() == Cookie.Type.GREEN)
                             music.play();
                         break;
                     case RED:
-                        if(cookie.getCookieType() == Cookie.Type.RED)
+                        if (cookie.getCookieType() == Cookie.Type.RED)
                             music.play();
                         break;
                     case BROWN:
-                        if(cookie.getCookieType() == Cookie.Type.BROWN)
+                        if (cookie.getCookieType() == Cookie.Type.BROWN)
                             music.play();
                         break;
-                }    
+                }
                 cookie.resetCookie();
                 return 0;
             }
@@ -152,9 +167,7 @@ public class Plate {
     }
 
     public boolean collides(Rectangle cookie){
-        if(cookie.overlaps(bounds))
-         Gdx.app.log("colide: ", "SIM");
-        else Gdx.app.log("colide: ", "NAO");
+
         return cookie.overlaps(bounds);
     }
 
