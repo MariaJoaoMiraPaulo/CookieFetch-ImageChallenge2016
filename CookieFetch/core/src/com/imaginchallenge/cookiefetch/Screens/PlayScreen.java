@@ -76,6 +76,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
         highscore=new Highscore(game.getWorld());
 
+        Gdx.app.log("HIGHSCORE: ","HIGHSCORE:"+game.getWorld());
+
         viewport=new StretchViewport(CookieFetch.V_WIDTH,CookieFetch.V_HEIGHT);
         stage=new Stage(viewport,game.batch);
 
@@ -114,25 +116,26 @@ public class PlayScreen implements Screen, InputProcessor {
         cookie.update(delta);
         for(int i = 0;i < 3;i++){
             plates.get(i).update(delta);
-            //Gdx.app.log("ola"," " + plates.get(i).checkColision(cookie));
-            player.setLives(plates.get(i).checkColision(cookie));
-            Gdx.app.log("Vidas"," "+player.getLives());
-            Gdx.app.log("BOUNDS"," " + plates.get(0).getBounds().x);
 
-            int col=plates.get(i).checkColision(cookie);
+            int plateCol=plates.get(i).checkColision(cookie);
 
-            if(col==-1)
-            {
-                player.setLives(col);
+            if(plateCol==-1){
+                player.setLives(plateCol);
             }
-            else if(col==1){
+
+
+            if(plateCol==0)
+            {
                 highscore.update(10);
             }
+
+
         }
 
         scoreLabel.setText(String.format("%06d", highscore.getScore()));
 
         if(player.getLives() == 0){
+            highscore.saveScore();
             game.setScreen(new GameOverScreen(game));
         }
 

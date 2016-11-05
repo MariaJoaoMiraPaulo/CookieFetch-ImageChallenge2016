@@ -58,6 +58,8 @@ public class Highscore {
         Gdx.app.log("entrou load","entrou load");
         FileHandle highscoreF = Gdx.files.local(HIGHSCORE_FILE_NAME + world + HIGHSCORE_FILE_EXTENSION);
 
+        Gdx.app.log("FILE","FILE"+HIGHSCORE_FILE_NAME + world + HIGHSCORE_FILE_EXTENSION);
+
         if(highscoreF.exists()) {
             String highscoreString = highscoreF.readString();
             highscore = Integer.parseInt(highscoreString);
