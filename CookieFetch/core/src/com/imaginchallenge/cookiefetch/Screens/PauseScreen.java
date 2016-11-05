@@ -37,8 +37,11 @@ public class PauseScreen implements Screen {
     private ImageButton homeButton;
     private ImageButton playButton;
 
-    public PauseScreen(CookieFetch game){
+    private PlayScreen playScreen;
+
+    public PauseScreen(CookieFetch game, PlayScreen playScreen){
         this.game = game;
+        this.playScreen = playScreen;
 
         background=new Texture("game"+game.getWorld()+".png");
         width = background.getWidth();
@@ -82,8 +85,8 @@ public class PauseScreen implements Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Screen screen=new PlayScreen(game);
-                game.setScreen(screen);
+                playScreen.input();
+                game.setScreen(playScreen);
                 dispose();
             }
         });

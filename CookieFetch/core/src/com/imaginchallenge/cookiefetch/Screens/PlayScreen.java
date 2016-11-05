@@ -148,7 +148,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
         if(screenX > Gdx.graphics.getWidth() - width*0.1 && screenX < Gdx.graphics.getWidth() &&
                 screenY > Gdx.graphics.getHeight() - height*0.05 && screenY < Gdx.graphics.getHeight()){
-            Screen screen = new PauseScreen(game);
+            Screen screen = new PauseScreen(game, this);
             game.setScreen(screen);
             dispose();
         }
@@ -216,5 +216,9 @@ public class PlayScreen implements Screen, InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public void input() {
+        Gdx.input.setInputProcessor(this);
     }
 }
