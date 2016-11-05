@@ -39,7 +39,7 @@ public class GameOverScreen implements Screen{
 
         this.game=game;
 
-        background = new Texture("menu.png");
+        background = new Texture("gameOver.png");
         width = background.getWidth();
         height = background.getHeight();
 
@@ -60,14 +60,14 @@ public class GameOverScreen implements Screen{
         style.up = skin.getDrawable("PlayButton");
         style.down = skin.getDrawable("PlayPressed");
         playButton = new ImageButton(style);
-        playButton.setPosition(width/2-playButton.getWidth()/2-400,height/2-120);
+        playButton.setPosition(width/2-playButton.getWidth()/2-240,height/2-120);
         playButton.setSize(250,250);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("HomePressed");
         style.down = skin.getDrawable("HomeButton");
         menuButton = new ImageButton(style);
-        menuButton.setPosition(width/2-playButton.getWidth()/2,height/2-120);
+        menuButton.setPosition(width/2-playButton.getWidth()/2+200,height/2-120);
         menuButton.setSize(250,250);
 
         stage.addActor(playButton);
