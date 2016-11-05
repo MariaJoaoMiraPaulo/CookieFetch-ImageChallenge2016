@@ -25,7 +25,8 @@ public class Cookie {
     private float MOVEMENT = -300;
     private ArrayList<Texture> cookieTextures;
 
-    public static final int COOKIES_DIVISON=5;
+    private static final int COOKIES_DIVISON=5;
+    private static final int NUM_TEXTURES_COOKIE=4;
 
     public enum State {
         IDLE, BTHROWING, INPLATE
@@ -70,7 +71,7 @@ public class Cookie {
 
         randomColor();
 
-        cookieWidth=texture.getWidth()/5;
+        cookieWidth=texture.getWidth()/COOKIES_DIVISON;
         cookieHeight=texture.getHeight();
 
         float x=width/2-cookieWidth/2;
@@ -82,7 +83,7 @@ public class Cookie {
 
         bounds=new Rectangle(x,startingY,cookieWidth,cookieHeight);
 
-        cookieAnimation=new Animation(new TextureRegion(texture),5,0.1f);
+        cookieAnimation=new Animation(new TextureRegion(texture),COOKIES_DIVISON,0.1f);
 
         cookieSpeedX=0;
         cookieSpeedY=0;
@@ -92,10 +93,11 @@ public class Cookie {
     }
 
     private void fillTextures(){
-        cookieTextures.add(0,new Texture("cookie1.png"));
-        cookieTextures.add(1,new Texture("cookie2.png"));
-        cookieTextures.add(2,new Texture("cookie3.png"));
-        cookieTextures.add(3,new Texture("cookie4.png"));
+
+        for(int i=1;i<=NUM_TEXTURES_COOKIE;i++){
+
+            cookieTextures.add(i-1,new Texture("cookie"+i+".png"));
+        }
     }
 
     public void resetCookie(){
@@ -106,11 +108,16 @@ public class Cookie {
         cookieSpeedX=0;
         cookieSpeedY=0;
         cookiePressed = false;
+        cookieAnimation.dispose();
         randomColor();
     }
 
     public void randomColor(){
+
         int randNum = (rand.nextInt(3));
+
+        Gdx.app.log("AQUI: ","Color"+randNum);
+
         switch (randNum){
             case 0:
                 selectTexture(Type.BROWN);
@@ -127,6 +134,8 @@ public class Cookie {
             default:
                 break;
         }
+
+        cookieAnimation=new Animation(new TextureRegion(texture),5,0.1f);
     }
 
     public void selectTexture(Type type){
@@ -154,7 +163,7 @@ public class Cookie {
         if(cookiePressed)
             cookieAnimation.update(delta);
 
-        //if(cookiePressed)
+
         move(cookieSpeedX,cookieSpeedY,0);
 
         bounds.setPosition(position.x,position.y);
@@ -166,7 +175,11 @@ public class Cookie {
     }
 
     public void render(SpriteBatch batch){
+
         batch.draw(cookieAnimation.getCurrFrame(),position.x,position.y);
+
+        Gdx.app.log("ERRO","X: "+position.x+", Y :"+position.y);
+
     }
 
     public Boolean getCookiePressed(){

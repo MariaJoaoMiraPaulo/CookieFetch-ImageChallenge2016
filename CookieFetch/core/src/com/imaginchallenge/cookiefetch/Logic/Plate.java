@@ -1,5 +1,6 @@
 package com.imaginchallenge.cookiefetch.Logic;
 
+import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,105 +16,94 @@ import java.util.Random;
 
 public class Plate {
 
-    public static final int V_WIDTH=1080;
-	public static final int V_HEIGHT=1920;
+    private static final int NUM_TEXTURES_PLATES=4;
+
+    public enum TypePlate {
+        GREEN,BROWN,BLACK,RED
+    }
+
+    private static final int V_WIDTH=1080;
+	private static final int V_HEIGHT=1920;
     private TypePlate plateType;
-    private Texture plateImage;
     private Rectangle bounds;
     private Vector2 position;
-    private ArrayList<Texture> platesTextures;  // 0- green, 1- brown, 2- black, 3- red
+    private float width;
+    private float height;
+    private int platesWidth;
+    private int platesHeight;
+    private ArrayList<Texture> platesTextures;  // 0- green, 1- brown, 2- red, 3- black
+    private int platesIndice;
     private Random rand;
     private int min=0, max=3;
     private int plateWidth = 270 ;
     private int plateLength = 150 ;
     private int velX;
 
+    public Plate(float width,float height,int y){
 
-    public enum TypePlate {
-        GREEN,BROWN,BLACK,RED
-    }
-    public Plate(int x, int y){
+        this.width=width;
+        this.height=height;
+
         platesTextures = new ArrayList<Texture>();
-        position = new Vector2();
+        fillTexturesArray();
+
         rand = new Random();
         setRandomVelocity(true);
 
-        fillTexturesArray();
+        int x=platesWidth;
+
+
+
+        position=new Vector2(x,y);
+
         setRandomTexture();
-        setPosition(x,y);
-        bounds = new Rectangle(x,y,plateImage.getWidth(),plateImage.getHeight());
-    }
-    public void setRandomVelocity(boolean positive){
-        if(positive)velX = rand.nextInt(8) +3;
-        else  velX = - rand.nextInt(8) +3;
+
+        bounds = new Rectangle(x,y,platesWidth,platesHeight);
     }
 
-     public void setBoundsPosition(float x, float y){
-        bounds.set(x,y,plateImage.getWidth(),plateImage.getHeight());
-     }
-    public void setPosition(int x,int y){
-        position.set(x,y);
+    public void setRandomVelocity(boolean positive){
+        if(positive)
+            velX = rand.nextInt(4) +8;
+        else
+            velX = - (rand.nextInt(4) +8);
     }
+
+    public void setBoundsPosition(float x, float y){
+        bounds.set(x,y,platesWidth,platesHeight);
+     }
 
     public void fillTexturesArray(){
-        platesTextures.add(0, new Texture("plate1.png"));
-        platesTextures.add(1, new Texture("plate2.png"));
-        platesTextures.add(2, new Texture("plate5.png"));
-        platesTextures.add(3, new Texture("plate3.png"));
-    }
 
-    public void setTexture(){
-        switch (plateType){
-            case BROWN:
-                this.plateImage = new Texture("plate2.png");
-                break;
-            case GREEN:
-                this.plateImage = new Texture("plate1.png");
-                break;
-            case RED:
-                this.plateImage = new Texture("plate3.png");
-                break;
-            case BLACK:
-                this.plateImage = new Texture("plate5.png");
-                break;
+        for(int i=1;i<=NUM_TEXTURES_PLATES;i++){
+            platesTextures.add(i-1,new Texture("plate"+i+".png"));
         }
+
+        platesHeight=platesTextures.get(0).getHeight();
+        platesWidth=platesTextures.get(0).getWidth();
+
     }
 
     public void setRandomTexture(){
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-        switch (randomNum){
-            case 0:
-                plateType=TypePlate.GREEN;
-                setTexture();
-                break;
-            case 1:
-                plateType=TypePlate.BROWN;
-                setTexture();
-                break;
-            case 2:
-                plateType=TypePlate.BLACK;
-                setTexture();
-                break;
-            case 3:
-                plateType= TypePlate.RED;
-                setTexture();
-                break;
-        }
+        int randomNum = rand.nextInt(4);
+        platesIndice=randomNum;
+        setPlateType();
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(plateImage,position.x,position.y, plateWidth,plateLength);
+        batch.draw(platesTextures.get(platesIndice),position.x,position.y, plateWidth,plateLength);
     }
 
     public void move(int x){
         position.add(x,0);
     }
+
     public void update(float delta){
-        if((position.x +plateWidth) >= V_WIDTH){
+
+        if((position.x +plateWidth) >= V_WIDTH && velX>0){
             setRandomVelocity(false);
             setRandomTexture();
         }
-        else if (position.x <= 0){
+        else if (position.x <= 0 && velX<0){
             setRandomVelocity(true);
             setRandomTexture();
         }
@@ -146,6 +136,25 @@ public class Plate {
 
     public boolean collides(Rectangle cookie){
         return cookie.overlaps(bounds);
+    }
+
+    public void setPlateType(){
+
+        switch(platesIndice){
+
+            case 0:
+                plateType=TypePlate.BLACK;
+                break;
+            case 1:
+                plateType=TypePlate.BROWN;
+                break;
+            case 2:
+                plateType= TypePlate.RED;
+                break;
+            case 3:
+                plateType=TypePlate.BLACK;
+                break;
+        }
     }
 
 

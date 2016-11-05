@@ -53,7 +53,6 @@ public class PlayScreen implements Screen, InputProcessor {
         //Creation of Plates and cookie
         plates = new ArrayList<Plate>();
         fillPlatesArray();
-        setPlatesInitialPosition();
         cookie=new Cookie(background.getWidth(),background.getHeight());
 
 
@@ -64,17 +63,9 @@ public class PlayScreen implements Screen, InputProcessor {
 
     public void fillPlatesArray(){
         for(int i = 0;i < 3; i++){
-            Plate p = new Plate(0,700 +100*i);
+            Plate p = new Plate(width,height,i*300+1100);
             p.setRandomTexture();
             plates.add(i,p);
-        }
-    }
-
-    public void setPlatesInitialPosition(){
-        for(int i =0;i < 3;i++){
-            plates.get(i).setPosition(1,975 +325*i);
-
-
         }
     }
 
@@ -186,7 +177,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
             if(ang <=Math.PI/2 && ang>=-Math.PI/2){
             cookie.setCookiePressed(true);
-            cookie.setCookieSpeed(-1 * (float) (20 * Math.sin(ang)), (float) (20 * Math.cos(ang)));
+            cookie.setCookieSpeed(-1 * (float) (25 * Math.sin(ang)), (float) (25 * Math.cos(ang)));
          }
             //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 
