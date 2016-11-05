@@ -35,9 +35,6 @@ public class Cookie {
         RED,GREEN,BROWN,BLACK
     }
 
-    public static int value = 5;
-    public Body body;
-
     private Vector2 position;
     private Vector2 velocity;
 
