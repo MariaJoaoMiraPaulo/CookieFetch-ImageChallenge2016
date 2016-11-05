@@ -52,7 +52,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
     public void fillPlatesArray(){
         for(int i = 0;i < 4; i++){
-            //Plate p = new Plate();
+            Plate p = new Plate();
             //p.setRandomTexture();
             //plates.add(i,p);
         }

@@ -25,12 +25,13 @@ public class Plate {
     public enum Type {
         GREEN,BROWN,BLACK,RED
     }
-    public Plate(Type type){
-        this.plateType = type;
-        this.platesTextures = new ArrayList<Texture>();
+    public Plate(){
+        setRandomTexture();
+        platesTextures = new ArrayList<Texture>();
         fillTexturesArray();
         bounds=new Rectangle(position.x,position.y,this.plateImage.getWidth(),this.plateImage.getHeight());
     }
+    
 
     public void fillTexturesArray(){
         platesTextures.add(0, new Texture("plate1.png"));
@@ -56,7 +57,7 @@ public class Plate {
         }
     }
 
-    public void setRandomeTexture(){
+    public void setRandomTexture(){
         int randomNum = rand.nextInt((max - min) + 1) + min;
         switch (randomNum){
             case 0:
