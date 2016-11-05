@@ -69,7 +69,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
     public void setPlatesInitialPosition(){
         for(int i =0;i < 3;i++){
-            plates.get(i).setPosition(0,975 +325*i);
+            plates.get(i).setPosition(1,975 +325*i);
         }
     }
 
@@ -81,6 +81,9 @@ public class PlayScreen implements Screen, InputProcessor {
     public void update(float delta){
 
         cookie.update(delta);
+        for(int i = 0;i < 3;i++){
+            plates.get(i).update(delta);
+        }
     }
 
     @Override

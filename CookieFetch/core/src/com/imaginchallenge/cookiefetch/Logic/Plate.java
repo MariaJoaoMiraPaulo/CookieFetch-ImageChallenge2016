@@ -1,5 +1,6 @@
 package com.imaginchallenge.cookiefetch.Logic;
 
+import com.imaginchallenge.cookiefetch.CookieFetch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,6 +15,8 @@ import java.util.Random;
 
 public class Plate {
 
+    public static final int V_WIDTH=1080;
+	public static final int V_HEIGHT=1920;
     private Type plateType;
     private Texture plateImage;
     private Rectangle bounds;
@@ -23,6 +26,7 @@ public class Plate {
     private int min=0, max=3;
     private int plateWidth = 270 ;
     private int plateLength = 150 ;
+    private int velX;
 
 
     public enum Type {
@@ -32,13 +36,19 @@ public class Plate {
         platesTextures = new ArrayList<Texture>();
         position = new Vector2();
         rand = new Random();
+        setRandomVelocity(true);
+
         fillTexturesArray();
         setRandomTexture();
         setPosition(x,y);
         bounds = new Rectangle(x,y,plateImage.getWidth(),plateImage.getHeight());
     }
+    public void setRandomVelocity(boolean positive){
+        if(positive)velX = rand.nextInt(8) +2;
+        else  velX = - rand.nextInt(8) +2;
+    }
 
-     public void setBoundsPosition(int x, int y){
+     public void setBoundsPosition(float x, float y){
         bounds.set(x,y,plateImage.getWidth(),plateImage.getHeight());
      }
     public void setPosition(int x,int y){
@@ -93,6 +103,23 @@ public class Plate {
 
     public void render(SpriteBatch batch){
         batch.draw(plateImage,position.x,position.y,plateWidth,plateLength);
+    }
+
+    public void move(int x){
+        position.add(x,0);
+    }
+    public void update(float delta){
+        if((position.x +plateWidth) >= V_WIDTH){
+            setRandomVelocity(false);
+            setRandomTexture();
+        }
+        else if (position.x <= 0){
+            setRandomVelocity(true);
+            setRandomTexture();
+        }
+
+        move(velX);
+        setBoundsPosition(position.x,position.y);
     }
 
     public boolean collides(Rectangle cookie){
