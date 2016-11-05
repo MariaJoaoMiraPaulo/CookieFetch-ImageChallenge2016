@@ -153,7 +153,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
         if(screenX > Gdx.graphics.getWidth() - width*0.1 && screenX < Gdx.graphics.getWidth() &&
                 screenY > Gdx.graphics.getHeight() - height*0.05 && screenY < Gdx.graphics.getHeight()){
-            Screen screen = new PauseScreen(game);
+            Screen screen = new PauseScreen(game, this);
             game.setScreen(screen);
             dispose();
         }
@@ -174,21 +174,24 @@ public class PlayScreen implements Screen, InputProcessor {
 
         Gdx.app.log("Toque", "INICIAL "+ startingPoint.x + " " + startingPoint.y);
 
-        Vector2 tmpVetor1=new Vector2(finishingPoint.x-startingPoint.x,finishingPoint.y-startingPoint.y);
+        float dist = finishingPoint.dst(startingPoint);
 
-        Vector2 tmpVetor2=new Vector2(0,0-startingPoint.y);
+        if(dist > height * 0.05) {
 
-        cookie.setCookiePressed(true);
+            Vector2 tmpVetor1 = new Vector2(finishingPoint.x - startingPoint.x, finishingPoint.y - startingPoint.y);
 
-        float ang = ((float)Math.PI*tmpVetor1.angle(tmpVetor2))/180;
+            Vector2 tmpVetor2 = new Vector2(0, 0 - startingPoint.y);
 
+            float ang = ((float) Math.PI * tmpVetor1.angle(tmpVetor2)) / 180;
 
-        cookie.setCookieSpeed(-1*(float)(100*Math.sin(ang)),(float)(100*Math.cos(ang)));
+            if(ang <=Math.PI/2 && ang>=-Math.PI/2){
+            cookie.setCookiePressed(true);
+            cookie.setCookieSpeed(-1 * (float) (100 * Math.sin(ang)), (float) (100 * Math.cos(ang)));
+         }
+            //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 
-        //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
-
-        Gdx.app.log("Toque", "Angulo "+ang);
-        Gdx.app.log("Toque", "Valores "+(float)(100*Math.sin(ang)) + " " + (float)(100*Math.cos(ang)));
+            Gdx.app.log("Toque", "Angulo " + ang);
+            Gdx.app.log("Toque", "Valores " + (float) (100 * Math.sin(ang)) + " " + (float) (100 * Math.cos(ang)));
 
       /*  double screenDistance = Math.sqrt(Math.pow(Gdx.graphics.getWidth(),2) + Math.pow(Gdx.graphics.getHeight(),2));
 
@@ -198,7 +201,7 @@ public class PlayScreen implements Screen, InputProcessor {
             Gdx.app.log("CENAS", "Aqui vai");
             //imgPosition.set(finishingPoint.x, Gdx.graphics.getHeight()-img.getHeight());
         }*/
-
+        }
         startingPoint.set(0,0);
         finishingPoint.set(0,0);
 
@@ -221,5 +224,9 @@ public class PlayScreen implements Screen, InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public void input() {
+        Gdx.input.setInputProcessor(this);
     }
 }
