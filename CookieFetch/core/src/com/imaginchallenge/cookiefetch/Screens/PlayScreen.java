@@ -247,7 +247,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
             if(ang <=Math.PI/2 && ang>=-Math.PI/2){
             cookie.setCookiePressed(true);
-                Gdx.app.log("FORÇA", " " + dist*0.2);
+                
                 if(dist * 0.2 > 55){
                     cookie.setCookieSpeed(-1 * (float) (55 * Math.sin(ang)), (float) (55 * Math.cos(ang)));
                 }
