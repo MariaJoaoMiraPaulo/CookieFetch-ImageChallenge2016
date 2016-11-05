@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.audio.Music;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,11 +45,15 @@ public class Plate {
     private int plateWidth = 270 ;
     private int plateHeight = 150 ;
     private int velX;
+    public static Music music = null;
 
     public Plate(float width,float height,int y){
 
         this.width=width;
         this.height=height;
+        music = Gdx.audio.newMusic(Gdx.files.internal("chew.mp3"));
+        //music.play();
+        //music.setLooping(true);
 
         platesTextures = new ArrayList<Texture>();
         fillTexturesArray();
@@ -121,43 +126,27 @@ public class Plate {
 
         if(collides(cookie.getBounds())){
             if(plateType == TypePlate.BLACK){
+                music.play();
                 cookie.resetCookie();
                 return -1;
             }else {
+                switch (plateType){
+                    case GREEN:
+                        if(cookie.getCookieType() == Cookie.Type.GREEN)
+                            music.play();
+                        break;
+                    case RED:
+                        if(cookie.getCookieType() == Cookie.Type.RED)
+                            music.play();
+                        break;
+                    case BROWN:
+                        if(cookie.getCookieType() == Cookie.Type.BROWN)
+                            music.play();
+                        break;
+                }    
                 cookie.resetCookie();
                 return 0;
             }
-
-
-            /*switch (plateType){
-                case BLACK:
-                    cookie.resetCookie();
-                    return -1;
-                case RED:
-                    if(cookie.getCookieType()==Cookie.Type.RED){
-                        cookie.resetCookie();
-                        return 0;
-                    }
-                    cookie.resetCookie();
-                    break;
-                case GREEN:
-                    if(cookie.getCookieType()==Cookie.Type.GREEN){
-                        cookie.resetCookie();
-                        return 0;
-                    }
-                    cookie.resetCookie();
-                    break;
-                case BROWN:
-                    if(cookie.getCookieType()==Cookie.Type.BROWN){
-                        cookie.resetCookie();
-                        return 0;
-                    }
-                    cookie.resetCookie();
-                    break;
-                default:
-                    break;
-            }*/
-
         }
         return 0;
     }

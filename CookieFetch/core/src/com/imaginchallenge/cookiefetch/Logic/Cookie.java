@@ -28,10 +28,6 @@ public class Cookie {
     private static final int COOKIES_DIVISON=5;
     private static final int NUM_TEXTURES_COOKIE=4;
 
-    public enum State {
-        IDLE, BTHROWING, INPLATE
-    }
-
     public enum Type {
         RED,GREEN,BROWN,BLACK
     }
@@ -120,15 +116,19 @@ public class Cookie {
 
         switch (randNum){
             case 0:
+                cookieType = Type.BROWN;
                 selectTexture(Type.BROWN);
                 break;
             case 1:
+                cookieType = Type.GREEN;
                 selectTexture(Type.GREEN);
                 break;
             case 2:
+                cookieType = Type.RED;
                 selectTexture(Type.RED);
                 break;
             case 3:
+                cookieType = Type.BLACK;
                 selectTexture(Type.BLACK);
                 break;
             default:
