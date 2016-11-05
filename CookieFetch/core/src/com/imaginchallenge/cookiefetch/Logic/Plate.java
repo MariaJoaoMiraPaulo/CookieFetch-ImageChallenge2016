@@ -114,7 +114,7 @@ public class Plate {
             minimumVelocity = 12;
         }
         if(gameTime > 20){
-            minimumVelocity = 16;
+            minimumVelocity = 14;
         }
 
         if((position.x +plateWidth) >= V_WIDTH && velX>0){
