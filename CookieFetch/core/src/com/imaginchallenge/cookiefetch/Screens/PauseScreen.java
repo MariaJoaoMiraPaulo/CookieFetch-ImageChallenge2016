@@ -24,6 +24,8 @@ public class PauseScreen implements Screen {
     private OrthographicCamera pauseCam;
     private Viewport pausePort;
 
+    private PlayScreen playScreen;
+
     private Texture background;
     private float width;
     private float height;
@@ -37,8 +39,9 @@ public class PauseScreen implements Screen {
     private ImageButton homeButton;
     private ImageButton playButton;
 
-    public PauseScreen(CookieFetch game){
+    public PauseScreen(CookieFetch game, PlayScreen playScreen){
         this.game = game;
+        this.playScreen = playScreen;
 
         background=new Texture("game.png");
         width = background.getWidth();
@@ -82,8 +85,8 @@ public class PauseScreen implements Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Screen screen=new PlayScreen(game);
-                game.setScreen(screen);
+                playScreen.input();
+                game.setScreen(playScreen);
                 dispose();
             }
         });

@@ -56,6 +56,8 @@ public class Cookie {
     private int width;
     private int heigth;
     private Texture texture;
+    private int cookieImageWidth = 190;
+    private int cookieImageLength = 190;
 
     public Cookie(int width,int height){
         cookieTextures = new ArrayList<Texture>();
@@ -156,7 +158,7 @@ public class Cookie {
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(cookieAnimation.getCurrFrame(),position.x,position.y);
+        batch.draw(cookieAnimation.getCurrFrame(),position.x-50,position.y,cookieImageWidth,cookieImageLength);
     }
 
     public Boolean getCookiePressed(){
