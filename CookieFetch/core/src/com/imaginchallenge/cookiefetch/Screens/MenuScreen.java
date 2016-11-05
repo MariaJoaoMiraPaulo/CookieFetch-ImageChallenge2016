@@ -60,22 +60,22 @@ public class MenuScreen implements Screen{
         style.up = skin.getDrawable("PlayButton");
         style.down = skin.getDrawable("PlayPressed");
         playButton = new ImageButton(style);
-        playButton.setPosition(width/2-playButton.getWidth()/2-10,height/2+80);
-        playButton.setSize(150,150);
+        playButton.setPosition(width/2-playButton.getWidth()/2-400,height/2-120);
+        playButton.setSize(250,250);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("HighScoresButton");
         style.down = skin.getDrawable("HighScoresPressed");
         highScoresButton = new ImageButton(style);
         highScoresButton.setPosition(width/2-playButton.getWidth()/2,height/2-120);
-        highScoresButton.setSize(150,150);
+        highScoresButton.setSize(250,250);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("SettingsButton");
         style.down = skin.getDrawable("SettingsPressed");
         settingButton = new ImageButton(style);
-        settingButton.setPosition(width/2-playButton.getWidth()/2, height/2-300);
-        settingButton.setSize(150,150);
+        settingButton.setPosition(width/2-playButton.getWidth()/2+335, height/2-120);
+        settingButton.setSize(250,250);
 
 
         stage.addActor(playButton);

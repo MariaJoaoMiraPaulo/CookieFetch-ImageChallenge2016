@@ -64,15 +64,15 @@ public class PauseScreen implements Screen {
         style.up = skin.getDrawable("PlayButton");
         style.down = skin.getDrawable("PlayPressed");
         playButton = new ImageButton(style);
-        playButton.setPosition(width/2-playButton.getWidth()/2-10,height/2+80);
-        playButton.setSize(150,150);
+        playButton.setPosition(width/2-playButton.getWidth()/2-260,height/2-120);
+        playButton.setSize(250,250);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("HomePressed");
         style.down = skin.getDrawable("HomeButton");
         homeButton = new ImageButton(style);
-        homeButton.setPosition(width/2-playButton.getWidth()/2, height/2-300);
-        homeButton.setSize(150,150);
+        homeButton.setPosition(width/2-playButton.getWidth()/2+200, height/2-120);
+        homeButton.setSize(250,250);
 
 
         stage.addActor(playButton);
