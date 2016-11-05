@@ -44,8 +44,8 @@ public class Plate {
         bounds = new Rectangle(x,y,plateImage.getWidth(),plateImage.getHeight());
     }
     public void setRandomVelocity(boolean positive){
-        if(positive)velX = rand.nextInt(8) +2;
-        else  velX = - rand.nextInt(8) +2;
+        if(positive)velX = rand.nextInt(8) +3;
+        else  velX = - rand.nextInt(8) +3;
     }
 
      public void setBoundsPosition(float x, float y){
@@ -102,7 +102,7 @@ public class Plate {
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(plateImage,position.x,position.y,plateWidth,plateLength);
+        batch.draw(plateImage,position.x,position.y, plateWidth,plateLength);
     }
 
     public void move(int x){

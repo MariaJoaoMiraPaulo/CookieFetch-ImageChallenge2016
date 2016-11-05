@@ -10,32 +10,40 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.imaginchallenge.cookiefetch.CookieFetch;
+import com.imaginchallenge.cookiefetch.Logic.Cookie;
 
 /**
- * Created by Jose on 04/11/2016.
+ * Created by Jose on 05/11/2016.
  */
-public class MenuScreen implements Screen{
+
+public class SettingsScreen implements Screen {
+
+    private static final int NUM_GAME_MODES=3;
 
     private CookieFetch game;
     private OrthographicCamera menuCam;
     private Viewport menuPort;
 
-    private ImageButton playButton;
-    private ImageButton highScoresButton;
-    private ImageButton settingButton;
-    private ImageButton musicButton;
+    private ImageButton leftButton;
+    private ImageButton rightButton;
+    private ImageButton homeButton;
     private TextureAtlas ButtonsPack;
     private Skin skin;
     private ImageButton.ImageButtonStyle style;
     private Texture background;
+    private Array<Texture> gameModes;
     private Stage stage;
     private float width;
     private float height;
+    private int currMode;
 
-    public MenuScreen(CookieFetch game){
+    public SettingsScreen(CookieFetch game){
+
+        this.game=game;
 
         this.game=game;
 
@@ -50,6 +58,15 @@ public class MenuScreen implements Screen{
         stage.clear();
         Gdx.input.setInputProcessor(stage);
 
+        gameModes=new Array<Texture>();
+        currMode=1;
+
+        for(int i=1;i<=NUM_GAME_MODES;i++){
+
+            gameModes.add(new Texture("game"+i+".png"));
+
+        }
+
         //buttons
         ButtonsPack = new TextureAtlas("menuButtons.atlas");
         skin = new Skin();
@@ -59,56 +76,54 @@ public class MenuScreen implements Screen{
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("PlayButton");
         style.down = skin.getDrawable("PlayPressed");
-        playButton = new ImageButton(style);
-        playButton.setPosition(width/2-playButton.getWidth()/2-10,height/2+80);
-        playButton.setSize(150,150);
+        leftButton = new ImageButton(style);
+        leftButton.setPosition(75,height/2-200);
+        leftButton.setSize(150,150);
 
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("HighScoresButton");
         style.down = skin.getDrawable("HighScoresPressed");
-        highScoresButton = new ImageButton(style);
-        highScoresButton.setPosition(width/2-playButton.getWidth()/2,height/2-120);
-        highScoresButton.setSize(150,150);
+        rightButton = new ImageButton(style);
+        rightButton.setPosition(width-80-rightButton.getWidth(),height/2-200);
+        rightButton.setSize(150,150);
 
         style = new ImageButton.ImageButtonStyle();
-        style.up = skin.getDrawable("SettingsButton");
-        style.down = skin.getDrawable("SettingsPressed");
-        settingButton = new ImageButton(style);
-        settingButton.setPosition(width/2-playButton.getWidth()/2, height/2-300);
-        settingButton.setSize(150,150);
+        style.up = skin.getDrawable("HomePressed");
+        style.down = skin.getDrawable("HomeButton");
+        homeButton = new ImageButton(style);
+        homeButton.setPosition(60,height-80-homeButton.getHeight());
+        homeButton.setSize(150,150);
 
 
-        stage.addActor(playButton);
-        stage.addActor(highScoresButton);
-        stage.addActor(settingButton);
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        stage.addActor(homeButton);
 
         loadListeneres();
+
 
     }
 
     public void loadListeneres(){
-        playButton.addListener(new ClickListener() {
+        leftButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Screen screen=new PlayScreen(game);
-                game.setScreen(screen);
-                dispose();
+                updateCurrMode(-1);
             }
         });
 
-        highScoresButton.addListener(new ClickListener() {
+        rightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Screen screen = new HighScoreScreen(game);
-                game.setScreen(screen);
-                dispose();
+                updateCurrMode(1);
             }
         });
 
-        settingButton.addListener(new ClickListener() {
+        homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Screen screen = new SettingsScreen(game);
+                game.setWord(currMode);
+                Screen screen = new MenuScreen(game);
                 game.setScreen(screen);
                 dispose();
             }
@@ -132,6 +147,7 @@ public class MenuScreen implements Screen{
         game.batch.setProjectionMatrix(menuCam.combined);
         game.batch.begin();
         game.batch.draw(background, 0, 0);
+        game.batch.draw(gameModes.get(currMode-1),250,400,600,750);
         game.batch.end();
         stage.draw();
     }
@@ -165,4 +181,20 @@ public class MenuScreen implements Screen{
         //music.dispose();
     }
 
+    public void updateCurrMode(int change){
+
+        if(change<0)
+        {
+            if(currMode==1)
+                currMode=NUM_GAME_MODES;
+            else
+                currMode--;
+        }
+        else{
+            if(currMode==NUM_GAME_MODES)
+                currMode=1;
+            else
+                currMode++;
+        }
+    }
 }
