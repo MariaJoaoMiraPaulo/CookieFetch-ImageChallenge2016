@@ -131,8 +131,9 @@ public class PlayScreen implements Screen, InputProcessor {
             }
 
 
-            if(plateCol==0) {
+            if(plateCol==0 && plates.get(i).getSameColor()) {
                 highscore.update(10);
+                plates.get(i).setSameColor(false);
             }
 
 
@@ -247,7 +248,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
             if(ang <=Math.PI/2 && ang>=-Math.PI/2){
             cookie.setCookiePressed(true);
-                
+
                 if(dist * 0.2 > 55){
                     cookie.setCookieSpeed(-1 * (float) (55 * Math.sin(ang)), (float) (55 * Math.cos(ang)));
                 }

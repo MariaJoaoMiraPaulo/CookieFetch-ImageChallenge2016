@@ -48,7 +48,7 @@ public class Plate {
     public static Music music = null;
     private int minimumVelocity;
     private double gameTime;
-
+    private boolean sameColor;
 
     public Plate(float width,float height,int y){
 
@@ -75,6 +75,7 @@ public class Plate {
         setRandomTexture();
 
         bounds = new Rectangle(x,y,plateWidth,plateHeight);
+        sameColor = false;
     }
 
     public void setRandomVelocity(boolean positive){
@@ -147,16 +148,22 @@ public class Plate {
             } else {
                 switch (plateType) {
                     case GREEN:
-                        if (cookie.getCookieType() == Cookie.Type.GREEN)
+                        if (cookie.getCookieType() == Cookie.Type.GREEN){
+                            sameColor = true;
                             music.play();
+                        }
                         break;
                     case RED:
-                        if (cookie.getCookieType() == Cookie.Type.RED)
+                        if (cookie.getCookieType() == Cookie.Type.RED) {
+                            sameColor = true;
                             music.play();
+                        }
                         break;
                     case BROWN:
-                        if (cookie.getCookieType() == Cookie.Type.BROWN)
+                        if (cookie.getCookieType() == Cookie.Type.BROWN) {
+                            sameColor = true;
                             music.play();
+                        }
                         break;
                 }
                 cookie.resetCookie();
@@ -192,6 +199,12 @@ public class Plate {
         }
     }
 
+    public void setSameColor(boolean flag){
+        sameColor = flag;
+    }
 
+    public boolean getSameColor(){
+        return sameColor;
+    }
 
 }
