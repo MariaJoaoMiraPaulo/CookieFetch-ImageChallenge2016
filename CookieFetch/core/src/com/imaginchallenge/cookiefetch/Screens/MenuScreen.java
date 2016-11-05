@@ -25,7 +25,7 @@ public class MenuScreen implements Screen{
 
     private ImageButton playButton;
     private ImageButton highScoresButton;
-    private ImageButton exitButton;
+    private ImageButton settingButton;
     private ImageButton musicButton;
     private TextureAtlas ButtonsPack;
     private Skin skin;
@@ -73,14 +73,14 @@ public class MenuScreen implements Screen{
         style = new ImageButton.ImageButtonStyle();
         style.up = skin.getDrawable("SettingsButton");
         style.down = skin.getDrawable("SettingsPressed");
-        exitButton = new ImageButton(style);
-        exitButton.setPosition(width/2-playButton.getWidth()/2, height/2-300);
-        exitButton.setSize(150,150);
+        settingButton = new ImageButton(style);
+        settingButton.setPosition(width/2-playButton.getWidth()/2, height/2-300);
+        settingButton.setSize(150,150);
 
 
         stage.addActor(playButton);
         stage.addActor(highScoresButton);
-        stage.addActor(exitButton);
+        stage.addActor(settingButton);
 
         loadListeneres();
 
@@ -105,21 +105,18 @@ public class MenuScreen implements Screen{
             }
         });
 
-        exitButton.addListener(new ClickListener() {
+        settingButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Screen screen = new SettingsScreen(game);
+                game.setScreen(screen);
                 dispose();
-                Gdx.app.exit();
             }
         });
     }
 
-    public void handleInput(float delta){
-
-    }
-
     public void update(float delta){
-        handleInput(delta);
+
     }
 
     @Override
@@ -168,158 +165,4 @@ public class MenuScreen implements Screen{
         //music.dispose();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*private QuizRoad game;
-    private OrthographicCamera playScreenCam;
-    private Viewport playScreenPort;
-
-    private Texture background;
-    private Stage stage;
-    private float width;
-    private float height;
-
-    private ImageButton playButton;
-    private ImageButton highScoresButton;
-    private ImageButton exitButton;
-    private ImageButton musicButton;
-    private TextureAtlas ButtonsPack;
-    private Skin skin;
-    private ImageButton.ImageButtonStyle style;
-
-    public MenuScreen(QuizRoad game){
-
-        this.game=game;
-        background = new Texture("testImage.jpg");
-        width = background.getWidth();
-        height = background.getHeight();
-        stage = new Stage(new FillViewport(1920,1080));
-        //buttons
-        ButtonsPack = new TextureAtlas("menuButtons1.pack");
-        skin = new Skin();
-        skin.addRegions(ButtonsPack);
-        style = new ImageButton.ImageButtonStyle();
-
-        style = new ImageButton.ImageButtonStyle();
-        style.up = skin.getDrawable("playButton");
-        style.down = skin.getDrawable("playButtonPressed");
-        playButton = new ImageButton(style);
-        playButton.setPosition(1920/2,1080/2-playButton.getWidth()/2);
-
-        /*** Creating buttons ***/
-        /*playTexture = new Texture(Gdx.files.internal("menu/play.png"));
-        ImageButton btnSingleplayer = new ImageButton(new SpriteDrawable(new Sprite(playTexture)));
-        btnSingleplayer.getImage().setScaling(Scaling.fit);
-
-        settingsAtlas = new TextureAtlas(Gdx.files.internal("packs/settings/settings.pack"));
-        Animation settingsAnimation = new Animation(1f/20f, settingsAtlas.getRegions());
-        AnimatedDrawable animatedDrawable = new AnimatedDrawable(settingsAnimation);
-        ImageButton btnSettings = new ImageButton(animatedDrawable, animatedDrawable);
-
-        highscoreAtlas = new TextureAtlas(Gdx.files.internal("packs/highscore/highscore.pack"));
-        Animation highscoreAnimation = new Animation(1f/20f, highscoreAtlas.getRegions());
-        animatedDrawable = new AnimatedDrawable(highscoreAnimation);
-        ImageButton btnHighscore = new ImageButton(animatedDrawable, animatedDrawable);*/
-
-        /*** Creating stage ***/
-        /*Table buttonsTable = new Table();
-
-        background = new Texture("testImage.jpg");
-        buttonsTable.background(new SpriteDrawable(new Sprite(background)));
-
-        stage = new Stage(new FillViewport(1920,1080));
-        stage.addActor(buttonsTable);
-
-
-        //stage.addActor(playButton);
-
-       //loadListeneres();
-
-    }
-
-    public void loadListeneres(){
-        playButton.addListener(new ClickListener() {
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //if(game.getIsMusicOn())
-                //    music.stop();
-                //Screen screen = new ChooseWorldScreen(game);
-                //game.setScreen(screen);
-                dispose();
-            }
-        });
-
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    public void update(float delta){
-
-    }
-
-    @Override
-    public void render(float delta) {
-        update(delta);
-
-        stage.act();
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-        background.dispose();
-        stage.dispose();
-    }*/
 }

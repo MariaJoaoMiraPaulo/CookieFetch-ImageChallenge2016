@@ -21,8 +21,6 @@ public class Plate {
     private ArrayList<Texture> platesTextures;  // 0- green, 1- brown, 2- black, 3- red
     private Random rand;
     private int min=0, max=3;
-    private int plateWidth = 270 ;
-    private int plateLength = 150 ;
 
 
     public enum Type {
@@ -92,7 +90,7 @@ public class Plate {
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(plateImage,position.x,position.y,plateWidth,plateLength);
+        batch.draw(plateImage,position.x,position.y);
     }
 
     public boolean collides(Rectangle cookie){

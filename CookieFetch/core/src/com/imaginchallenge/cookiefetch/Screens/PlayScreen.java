@@ -41,7 +41,7 @@ public class PlayScreen implements Screen, InputProcessor {
         finishingPoint = new Vector2(0,0);
         startingPoint = new Vector2(0,0);
 
-        background=new Texture("game.png");
+        background=new Texture("game"+game.getWorld()+".png");
         width = background.getWidth();
         height = background.getHeight();
 
@@ -69,7 +69,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
     public void setPlatesInitialPosition(){
         for(int i =0;i < 3;i++){
-            plates.get(i).setPosition(0,975 +325*i);
+            plates.get(i).setPosition(0,700 +100*i);
         }
     }
 
@@ -143,7 +143,7 @@ public class PlayScreen implements Screen, InputProcessor {
 
         if(screenX > Gdx.graphics.getWidth() - width*0.1 && screenX < Gdx.graphics.getWidth() &&
                 screenY > Gdx.graphics.getHeight() - height*0.05 && screenY < Gdx.graphics.getHeight()){
-            Screen screen = new PauseScreen(game, this);
+            Screen screen = new PauseScreen(game);
             game.setScreen(screen);
             dispose();
         }
@@ -164,25 +164,21 @@ public class PlayScreen implements Screen, InputProcessor {
 
         Gdx.app.log("Toque", "INICIAL "+ startingPoint.x + " " + startingPoint.y);
 
-        float dist = finishingPoint.dst(startingPoint);
+        Vector2 tmpVetor1=new Vector2(finishingPoint.x-startingPoint.x,finishingPoint.y-startingPoint.y);
 
-        if(dist > Gdx.graphics.getHeight()*0.1) {
+        Vector2 tmpVetor2=new Vector2(0,0-startingPoint.y);
 
-            Vector2 tmpVetor1 = new Vector2(finishingPoint.x - startingPoint.x, finishingPoint.y - startingPoint.y);
+        cookie.setCookiePressed(true);
 
-            Vector2 tmpVetor2 = new Vector2(0, 0 - startingPoint.y);
+        float ang = ((float)Math.PI*tmpVetor1.angle(tmpVetor2))/180;
 
-            float ang = ((float) Math.PI * tmpVetor1.angle(tmpVetor2)) / 180;
 
-            if(ang<=Math.PI/2 && ang>=-Math.PI/2) {
-                cookie.setCookiePressed(true);
-                cookie.setCookieSpeed(-1 * (float) (100 * Math.sin(ang)), (float) (100 * Math.cos(ang)));
-            }
+        cookie.setCookieSpeed(-1*(float)(100*Math.sin(ang)),(float)(100*Math.cos(ang)));
 
-            //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
+        //distance = startingPoint.dst(finishingPoint.x, finishingPoint.y);
 
-            Gdx.app.log("Toque", "Angulo " + ang);
-            Gdx.app.log("Toque", "Valores " + (float) (100 * Math.sin(ang)) + " " + (float) (100 * Math.cos(ang)));
+        Gdx.app.log("Toque", "Angulo "+ang);
+        Gdx.app.log("Toque", "Valores "+(float)(100*Math.sin(ang)) + " " + (float)(100*Math.cos(ang)));
 
       /*  double screenDistance = Math.sqrt(Math.pow(Gdx.graphics.getWidth(),2) + Math.pow(Gdx.graphics.getHeight(),2));
 
@@ -192,7 +188,7 @@ public class PlayScreen implements Screen, InputProcessor {
             Gdx.app.log("CENAS", "Aqui vai");
             //imgPosition.set(finishingPoint.x, Gdx.graphics.getHeight()-img.getHeight());
         }*/
-        }
+
         startingPoint.set(0,0);
         finishingPoint.set(0,0);
 
@@ -216,9 +212,4 @@ public class PlayScreen implements Screen, InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
-
-    public void input() {
-        Gdx.input.setInputProcessor(this);
-    }
-
 }
